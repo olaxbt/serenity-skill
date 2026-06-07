@@ -1,0 +1,30 @@
+# Golden expectations for lookup_ticker.py (key phrases, not full text)
+
+cases:
+  - ticker: SIVE
+    must_found: true
+    sector_contains: photonics
+    markdown_contains:
+      - merchant laser
+      - CPO
+
+  - ticker: AXTI
+    must_found: true
+    sector_contains: Compound
+    markdown_contains:
+      - InP
+      - substrate
+
+  - ticker: LITE
+    must_found: true
+    markdown_contains:
+      - optical
+      - OCS
+
+  - ticker: NVDA
+    must_found: true
+    markdown_contains:
+      - GPU
+
+  - ticker: ZZZZ
+    must_found: false

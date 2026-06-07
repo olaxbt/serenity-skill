@@ -1,0 +1,14 @@
+{
+  "generated_at": "2026-06-07T15:17:19.508053+00:00",
+  "new_tweet_count": 0,
+  "actionable_count": 0,
+  "candidates": [],
+  "summary_by_category": {},
+  "next_steps": [
+    "Review actionable candidates in data/distill-candidates.json",
+    "Apply updates per distillation/MAINTENANCE.md",
+    "Re-run scripts/split_theses.py if sector thesis files changed",
+    "Re-run scripts/run_qc.py"
+  ],
+  "learning_loop_note": "X API sync updates tweets.json automatically. This script closes the loop to actionable distillation tasks; agent/human still applies edits to theses/track-record."
+}

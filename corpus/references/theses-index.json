@@ -1,0 +1,309 @@
+{
+  "version": 1,
+  "source": "theses.md",
+  "sector_count": 10,
+  "ticker_count": 43,
+  "tickers": {
+    "LITE": {
+      "ticker": "LITE",
+      "sector": "Optical / CPO / photonics",
+      "sector_slug": "optical-cpo-photonics",
+      "title": "LITE (Lumentum) — optical transceivers, OCS for Google TPU",
+      "file": "theses/optical-cpo-photonics.md"
+    },
+    "COHR": {
+      "ticker": "COHR",
+      "sector": "Optical / CPO / photonics",
+      "sector_slug": "optical-cpo-photonics",
+      "title": "COHR (Coherent) — diversified photonics (laser/substrate/transceiver)",
+      "file": "theses/optical-cpo-photonics.md"
+    },
+    "AAOI": {
+      "ticker": "AAOI",
+      "sector": "Optical / CPO / photonics",
+      "sector_slug": "optical-cpo-photonics",
+      "title": "AAOI (Applied Optoelectronics) — \"Made in America\" transceivers",
+      "file": "theses/optical-cpo-photonics.md"
+    },
+    "SIVE": {
+      "ticker": "SIVE",
+      "sector": "Optical / CPO / photonics",
+      "sector_slug": "optical-cpo-photonics",
+      "title": "SIVE / SIVEF (Sivers Semiconductors) — CW/DFB merchant laser for CPO",
+      "file": "theses/optical-cpo-photonics.md"
+    },
+    "SIVEF": {
+      "ticker": "SIVEF",
+      "sector": "Optical / CPO / photonics",
+      "sector_slug": "optical-cpo-photonics",
+      "title": "SIVE / SIVEF (Sivers Semiconductors) — CW/DFB merchant laser for CPO",
+      "file": "theses/optical-cpo-photonics.md"
+    },
+    "IQE": {
+      "ticker": "IQE",
+      "sector": "Optical / CPO / photonics",
+      "sector_slug": "optical-cpo-photonics",
+      "title": "IQE (IQE plc, LSE) — compound-semi epiwafer foundry",
+      "file": "theses/optical-cpo-photonics.md"
+    },
+    "POET": {
+      "ticker": "POET",
+      "sector": "Optical / CPO / photonics",
+      "sector_slug": "optical-cpo-photonics",
+      "title": "POET Technologies — optical-interposer packaging for CPO",
+      "file": "theses/optical-cpo-photonics.md"
+    },
+    "AXTI": {
+      "ticker": "AXTI",
+      "sector": "Compound semi, substrates & materials",
+      "sector_slug": "compound-semi-substrates-materials",
+      "title": "AXTI (AXT Inc.) — InP substrate + feedstock (the flagship bottleneck)",
+      "file": "theses/compound-semi-substrates-materials.md"
+    },
+    "SOI": {
+      "ticker": "SOI",
+      "sector": "Compound semi, substrates & materials",
+      "sector_slug": "compound-semi-substrates-materials",
+      "title": "SOI / SLOIF (Soitec) — CPO-grade SOI substrate monopoly",
+      "file": "theses/compound-semi-substrates-materials.md"
+    },
+    "SLOIF": {
+      "ticker": "SLOIF",
+      "sector": "Compound semi, substrates & materials",
+      "sector_slug": "compound-semi-substrates-materials",
+      "title": "SOI / SLOIF (Soitec) — CPO-grade SOI substrate monopoly",
+      "file": "theses/compound-semi-substrates-materials.md"
+    },
+    "TSEM": {
+      "ticker": "TSEM",
+      "sector": "Compound semi, substrates & materials",
+      "sector_slug": "compound-semi-substrates-materials",
+      "title": "TSEM (Tower Semiconductor) — InP/SiPh specialty foundry (\"TSM of photonics\")",
+      "file": "theses/compound-semi-substrates-materials.md"
+    },
+    "VNP": {
+      "ticker": "VNP",
+      "sector": "Compound semi, substrates & materials",
+      "sector_slug": "compound-semi-substrates-materials",
+      "title": "VNP (5N Plus) — Western critical-materials equivalent to AXTI",
+      "file": "theses/compound-semi-substrates-materials.md"
+    },
+    "WIN": {
+      "ticker": "WIN",
+      "sector": "Compound semi, substrates & materials",
+      "sector_slug": "compound-semi-substrates-materials",
+      "title": "Win Semi (3105.TWO) — compound-semi foundry, multi-TAM",
+      "file": "theses/compound-semi-substrates-materials.md"
+    },
+    "NBIS": {
+      "ticker": "NBIS",
+      "sector": "Neocloud / AI datacenter",
+      "sector_slug": "neocloud-ai-datacenter",
+      "title": "NBIS (Nebius Group) — full-stack GPU neocloud + subsidiaries",
+      "file": "theses/neocloud-ai-datacenter.md"
+    },
+    "IREN": {
+      "ticker": "IREN",
+      "sector": "Neocloud / AI datacenter",
+      "sector_slug": "neocloud-ai-datacenter",
+      "title": "IREN (Iris Energy) — BTC-miner → AI datacenter / GPU cloud",
+      "file": "theses/neocloud-ai-datacenter.md"
+    },
+    "CRWV": {
+      "ticker": "CRWV",
+      "sector": "Neocloud / AI datacenter",
+      "sector_slug": "neocloud-ai-datacenter",
+      "title": "CRWV (CoreWeave) — neocloud, heavy debt",
+      "file": "theses/neocloud-ai-datacenter.md"
+    },
+    "CIFR": {
+      "ticker": "CIFR",
+      "sector": "Neocloud / AI datacenter",
+      "sector_slug": "neocloud-ai-datacenter",
+      "title": "CIFR (Cipher Mining) — colo neocloud, GOOGL/AMZN backstop",
+      "file": "theses/neocloud-ai-datacenter.md"
+    },
+    "WULF": {
+      "ticker": "WULF",
+      "sector": "Neocloud / AI datacenter",
+      "sector_slug": "neocloud-ai-datacenter",
+      "title": "WULF (TeraWulf) — BTC miner with HPC optionality",
+      "file": "theses/neocloud-ai-datacenter.md"
+    },
+    "MU": {
+      "ticker": "MU",
+      "sector": "Memory / HBM / NAND",
+      "sector_slug": "memory-hbm-nand",
+      "title": "MU (Micron) — DRAM/HBM, \"safest\" memory play",
+      "file": "theses/memory-hbm-nand.md"
+    },
+    "SNDK": {
+      "ticker": "SNDK",
+      "sector": "Memory / HBM / NAND",
+      "sector_slug": "memory-hbm-nand",
+      "title": "SNDK (SanDisk / WD memory) — NAND/SSD, his personal benchmark",
+      "file": "theses/memory-hbm-nand.md"
+    },
+    "SIMO": {
+      "ticker": "SIMO",
+      "sector": "Memory / HBM / NAND",
+      "sector_slug": "memory-hbm-nand",
+      "title": "SIMO (Silicon Motion) — NAND flash controllers",
+      "file": "theses/memory-hbm-nand.md"
+    },
+    "SAMSUNG": {
+      "ticker": "SAMSUNG",
+      "sector": "Memory / HBM / NAND",
+      "sector_slug": "memory-hbm-nand",
+      "title": "Samsung / SK Hynix / EWY / Towa — Asian memory",
+      "file": "theses/memory-hbm-nand.md"
+    },
+    "SK": {
+      "ticker": "SK",
+      "sector": "Memory / HBM / NAND",
+      "sector_slug": "memory-hbm-nand",
+      "title": "Samsung / SK Hynix / EWY / Towa — Asian memory",
+      "file": "theses/memory-hbm-nand.md"
+    },
+    "EWY": {
+      "ticker": "EWY",
+      "sector": "Memory / HBM / NAND",
+      "sector_slug": "memory-hbm-nand",
+      "title": "Samsung / SK Hynix / EWY / Towa — Asian memory",
+      "file": "theses/memory-hbm-nand.md"
+    },
+    "TOWA": {
+      "ticker": "TOWA",
+      "sector": "Memory / HBM / NAND",
+      "sector_slug": "memory-hbm-nand",
+      "title": "Samsung / SK Hynix / EWY / Towa — Asian memory",
+      "file": "theses/memory-hbm-nand.md"
+    },
+    "NVDA": {
+      "ticker": "NVDA",
+      "sector": "AI compute & hyperscalers",
+      "sector_slug": "ai-compute-hyperscalers",
+      "title": "NVDA (Nvidia) — the GPU constraint, \"center of everything\"",
+      "file": "theses/ai-compute-hyperscalers.md"
+    },
+    "TSM": {
+      "ticker": "TSM",
+      "sector": "AI compute & hyperscalers",
+      "sector_slug": "ai-compute-hyperscalers",
+      "title": "TSM (TSMC) — the foundry backbone, \"safest compounder\"",
+      "file": "theses/ai-compute-hyperscalers.md"
+    },
+    "MRVL": {
+      "ticker": "MRVL",
+      "sector": "AI compute & hyperscalers",
+      "sector_slug": "ai-compute-hyperscalers",
+      "title": "MRVL (Marvell) — ASIC designer, MSFT Maia / CPO",
+      "file": "theses/ai-compute-hyperscalers.md"
+    },
+    "AVGO": {
+      "ticker": "AVGO",
+      "sector": "AI compute & hyperscalers",
+      "sector_slug": "ai-compute-hyperscalers",
+      "title": "AVGO (Broadcom) — hyperscaler ASIC / TPU ecosystem",
+      "file": "theses/ai-compute-hyperscalers.md"
+    },
+    "ALAB": {
+      "ticker": "ALAB",
+      "sector": "AI compute & hyperscalers",
+      "sector_slug": "ai-compute-hyperscalers",
+      "title": "ALAB (Astera Labs) — AI interconnect (PCIe retimers / CXL)",
+      "file": "theses/ai-compute-hyperscalers.md"
+    },
+    "INTC": {
+      "ticker": "INTC",
+      "sector": "AI compute & hyperscalers",
+      "sector_slug": "ai-compute-hyperscalers",
+      "title": "INTC (Intel) — US-government foundry play",
+      "file": "theses/ai-compute-hyperscalers.md"
+    },
+    "ARM": {
+      "ticker": "ARM",
+      "sector": "AI compute & hyperscalers",
+      "sector_slug": "ai-compute-hyperscalers",
+      "title": "ARM (Arm Holdings) — CPU bottleneck for inference",
+      "file": "theses/ai-compute-hyperscalers.md"
+    },
+    "AMD": {
+      "ticker": "AMD",
+      "sector": "AI compute & hyperscalers",
+      "sector_slug": "ai-compute-hyperscalers",
+      "title": "AMD — GPU #2",
+      "file": "theses/ai-compute-hyperscalers.md"
+    },
+    "GOOGL": {
+      "ticker": "GOOGL",
+      "sector": "AI compute & hyperscalers",
+      "sector_slug": "ai-compute-hyperscalers",
+      "title": "GOOGL / MSFT / META / AMZN / ORCL — hyperscalers",
+      "file": "theses/ai-compute-hyperscalers.md"
+    },
+    "MSFT": {
+      "ticker": "MSFT",
+      "sector": "AI compute & hyperscalers",
+      "sector_slug": "ai-compute-hyperscalers",
+      "title": "GOOGL / MSFT / META / AMZN / ORCL — hyperscalers",
+      "file": "theses/ai-compute-hyperscalers.md"
+    },
+    "META": {
+      "ticker": "META",
+      "sector": "AI compute & hyperscalers",
+      "sector_slug": "ai-compute-hyperscalers",
+      "title": "GOOGL / MSFT / META / AMZN / ORCL — hyperscalers",
+      "file": "theses/ai-compute-hyperscalers.md"
+    },
+    "AMZN": {
+      "ticker": "AMZN",
+      "sector": "AI compute & hyperscalers",
+      "sector_slug": "ai-compute-hyperscalers",
+      "title": "GOOGL / MSFT / META / AMZN / ORCL — hyperscalers",
+      "file": "theses/ai-compute-hyperscalers.md"
+    },
+    "ORCL": {
+      "ticker": "ORCL",
+      "sector": "AI compute & hyperscalers",
+      "sector_slug": "ai-compute-hyperscalers",
+      "title": "GOOGL / MSFT / META / AMZN / ORCL — hyperscalers",
+      "file": "theses/ai-compute-hyperscalers.md"
+    },
+    "XLU": {
+      "ticker": "XLU",
+      "sector": "Power / grid",
+      "sector_slug": "power-grid",
+      "title": "XLU (Utilities SPDR) — the AI-power leap trade",
+      "file": "theses/power-grid.md"
+    },
+    "VST": {
+      "ticker": "VST",
+      "sector": "Power / grid",
+      "sector_slug": "power-grid",
+      "title": "VST (Vistra), CEG (Constellation) — AI-power / nuclear",
+      "file": "theses/power-grid.md"
+    },
+    "AEHR": {
+      "ticker": "AEHR",
+      "sector": "Test / equipment / packaging",
+      "sector_slug": "test-equipment-packaging",
+      "title": "AEHR (Aehr Test Systems) — wafer-level burn-in/test",
+      "file": "theses/test-equipment-packaging.md"
+    },
+    "LPK": {
+      "ticker": "LPK",
+      "sector": "Test / equipment / packaging",
+      "sector_slug": "test-equipment-packaging",
+      "title": "LPK / LPKFF (LPKF Laser & Electronics) — glass-core-substrate equipment",
+      "file": "theses/test-equipment-packaging.md"
+    },
+    "LPKFF": {
+      "ticker": "LPKFF",
+      "sector": "Test / equipment / packaging",
+      "sector_slug": "test-equipment-packaging",
+      "title": "LPK / LPKFF (LPKF Laser & Electronics) — glass-core-substrate equipment",
+      "file": "theses/test-equipment-packaging.md"
+    }
+  }
+}
