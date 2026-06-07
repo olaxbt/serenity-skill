@@ -1,0 +1,16 @@
+.env
+.cursor/
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+corpus/data/daily-brief*.txt
+corpus/data/daily-brief.log
+corpus/data/radar-snapshot-*.txt
+corpus/data/sessions.db
+
+# Local QA only — not published
+scripts/dry_run_prompts.py
+dry_run_report.json
+dry_run_report.txt

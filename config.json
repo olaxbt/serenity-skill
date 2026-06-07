@@ -1,0 +1,8 @@
+{
+  "handle": "aleabitoreddit",
+  "display_name": "Serenity",
+  "lookback_hours": 36,
+  "max_tweets": 100,
+  "twitter_sync_enabled": false,
+  "allow_syndication_fallback": false
+}
