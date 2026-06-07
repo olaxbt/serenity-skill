@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="docs/assets/readme-hero.png" alt="Serenity Twin — OlaXBT research agent" width="720" />
+
 # Serenity Twin
 
 **A queryable digital twin of Serenity ([@aleabitoreddit](https://x.com/aleabitoreddit)) — corpus, live web, radar, and bottleneck research workflows**

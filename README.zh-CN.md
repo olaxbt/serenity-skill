@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="docs/assets/readme-hero.png" alt="Serenity Twin — OlaXBT 投研 Agent" width="720" />
+
 # Serenity Twin
 
 **Serenity ([@aleabitoreddit](https://x.com/aleabitoreddit)) 数字孪生 — 语料、自动联网、雷达与瓶颈投研工作流**
