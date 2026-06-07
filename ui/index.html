@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#e781fd" />
+  <meta name="description" content="Serenity Twin — distilled corpus, live market data, and attention radar for investment research." />
+  <link rel="icon" href="/assets/serenity.png" type="image/png" />
+  <link rel="apple-touch-icon" href="/assets/serenity.png" />
+  <title>Serenity Twin · OlaXBT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/app.css?v=0.3.8" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
+</head>
+<body>
+  <div id="sidebar-backdrop" class="sidebar-backdrop hidden" aria-hidden="true"></div>
+
+  <div class="app-shell">
+    <aside id="sidebar" class="sidebar">
+      <div class="brand-block">
+        <img src="/assets/serenity.png" alt="Serenity" class="brand-avatar" width="40" height="40" />
+        <div>
+          <h1 id="txt-brand">Serenity Twin</h1>
+          <p id="txt-tagline" class="tagline"></p>
+          <p id="txt-sidebar-disclaimer" class="sidebar-disclaimer"></p>
+        </div>
+      </div>
+      <div id="status-bar" class="status-pills"></div>
+
+      <div id="env-setup" class="env-setup hidden">
+        <h2 id="txt-env-title">Agent narrative setup</h2>
+        <p id="env-setup-desc" class="env-setup-desc"></p>
+        <p id="env-setup-path" class="env-setup-path"></p>
+        <pre id="env-setup-example" class="env-setup-example">DEEPSEEK_API_KEY=sk-your-key-here</pre>
+        <p id="env-setup-cursor" class="env-setup-note"></p>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="section-head">
+          <h2 id="txt-history">History</h2>
+          <button type="button" id="btn-new-chat" class="btn-text"></button>
+        </div>
+        <div id="session-list" class="session-list"></div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <h2 id="txt-prompts">What you can do</h2>
+        <div id="prompt-list" class="prompt-list"></div>
+      </nav>
+
+      <div class="sidebar-tools">
+        <h2 id="txt-tools">Quick tools</h2>
+        <div class="tool-row">
+          <input id="ticker-input" type="text" placeholder="SIVE" maxlength="8" aria-label="Ticker" />
+          <button type="button" id="btn-lookup" class="btn-secondary"></button>
+        </div>
+        <div class="tool-row split">
+          <button type="button" id="btn-radar" class="btn-secondary"></button>
+          <button type="button" id="btn-brief" class="btn-secondary"></button>
+        </div>
+      </div>
+
+      <div class="sidebar-community">
+        <h2 id="txt-community">OlaXBT community</h2>
+        <p id="community-subtitle" class="community-subtitle"></p>
+        <div id="community-links" class="community-links"></div>
+      </div>
+
+      <button type="button" id="btn-lang" class="btn-lang"></button>
+    </aside>
+
+    <main class="main-panel">
+      <header class="mobile-topbar">
+        <button type="button" id="btn-menu" class="btn-icon" aria-label="Menu">☰</button>
+        <img src="/assets/serenity.png" alt="" class="mobile-avatar" width="28" height="28" />
+        <span id="mobile-title" class="mobile-title">Serenity Twin</span>
+      </header>
+
+      <div id="output" class="output-area chat-thread">
+        <div id="empty-state" class="empty-state">
+          <img src="/assets/serenity.png" alt="Serenity Twin" class="empty-avatar" width="120" height="72" />
+          <p id="txt-empty"></p>
+          <p id="txt-disclaimer-banner" class="disclaimer-banner"></p>
+        </div>
+        <div id="chat-messages" class="chat-messages hidden"></div>
+      </div>
+
+      <div class="composer-bar">
+        <div id="meta" class="meta-line"></div>
+        <div id="composer-inner" class="composer-inner">
+          <textarea id="prompt-input" rows="1" aria-label="Prompt"></textarea>
+          <div class="composer-footer">
+            <p id="agent-synth-hint" class="agent-synth-hint"></p>
+            <div class="composer-actions">
+              <button type="button" id="btn-cancel" class="btn-secondary hidden"></button>
+              <button type="button" id="btn-send" class="btn-primary">
+                <span id="txt-run">Ask</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <p id="txt-footer" class="composer-disclaimer"></p>
+      </div>
+    </main>
+  </div>
+
+  <div id="thesis-modal" class="modal hidden" role="dialog" aria-modal="true">
+    <div class="modal-backdrop"></div>
+    <div class="modal-panel">
+      <button type="button" id="modal-close" class="modal-close" aria-label="Close">×</button>
+      <div id="modal-body" class="modal-body"></div>
+    </div>
+  </div>
+
+  <script src="/app.js?v=0.3.8"></script>
+</body>
+</html>

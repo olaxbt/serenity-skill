@@ -1,0 +1,82 @@
+[
+  {
+    "id": "a-sive",
+    "mode": "A",
+    "title_en": "Her conviction on a ticker",
+    "title_zh": "她对某标的的信念",
+    "subtitle_en": "Stance, tier evolution & key risks",
+    "subtitle_zh": "观点、置信度演变与主要风险",
+    "prompt_en": "What is Serenity's view on $SIVE? Include conviction tier, evolution, and key risks.",
+    "prompt_zh": "用 serenity-twin：Serenity 对 $SIVE 的看法是什么？给出 conviction tier、演变和主要风险。"
+  },
+  {
+    "id": "a-unknown",
+    "mode": "A",
+    "title_en": "Screen a name she hasn't covered",
+    "title_zh": "初筛她未深度覆盖的标的",
+    "subtitle_en": "Methodology checklist for fresh ideas",
+    "subtitle_zh": "用她的方法论框架做 fresh-name 初筛",
+    "prompt_en": "Serenity never covered $NVTS deeply. Apply methodology checklist for a fresh-name analysis.",
+    "prompt_zh": "用 serenity-twin：Serenity 从未深度覆盖的 $NVTS，用 methodology checklist 做 fresh-name 分析。"
+  },
+  {
+    "id": "b-radar",
+    "mode": "B",
+    "title_en": "Attention Radar",
+    "title_zh": "注意力 Radar",
+    "subtitle_en": "14-day heating & new entrants",
+    "subtitle_zh": "14 天升温与新进标的",
+    "prompt_en": "Run radar (14d). List Heating and New entrants; cross-check theses.",
+    "prompt_zh": "用 serenity-twin：跑 radar（14 天），列出 Heating 和 New entrants，cross-check theses。"
+  },
+  {
+    "id": "c-ashare",
+    "mode": "C",
+    "title_en": "Map a theme to bottlenecks",
+    "title_zh": "主题映射到产业链卡点",
+    "subtitle_en": "Scarce layers first → stock shortlist",
+    "subtitle_zh": "先排稀缺层，再落到个股与 ETF",
+    "prompt_en": "Deep scan A-share AI semiconductor chain: scarce layers first, then stocks and ETF fit.",
+    "prompt_zh": "用 serenity-twin 深度调研 A 股 AI 半导体产业链：先排 scarce layer，再排个股与 ETF。"
+  },
+  {
+    "id": "c-cpo",
+    "mode": "C",
+    "title_en": "CPO / optical deep-dive",
+    "title_zh": "CPO / 光通信深研",
+    "subtitle_en": "System change → value chain → candidates",
+    "subtitle_zh": "系统变化 → 产业链 → 候选标的",
+    "prompt_en": "CPO / optical theme scan: system change → value chain → scarce layers → candidates.",
+    "prompt_zh": "用 serenity-twin：CPO/光通信主题 scan，系统变化 → 产业链 → 稀缺层 → 候选。"
+  },
+  {
+    "id": "d-memo",
+    "mode": "D",
+    "title_en": "One-page research memo",
+    "title_zh": "单页深度研报",
+    "subtitle_en": "Evidence ladder & falsifiers",
+    "subtitle_zh": "证据阶梯与证伪条件",
+    "prompt_en": "Write a one-page $SIVE thesis memo: system change → bottleneck → evidence → falsifiers.",
+    "prompt_zh": "用 serenity-twin：写 $SIVE 单页 thesis memo：系统变化 → 卡点 → 证据 → 证伪条件。"
+  },
+  {
+    "id": "e-learn",
+    "mode": "E",
+    "title_en": "Learn her research method",
+    "title_zh": "学她的投研方法",
+    "subtitle_en": "Guided Q&A — no stock picks",
+    "subtitle_zh": "逐步问答辅导，非荐股",
+    "prompt_en": "Teach me Serenity-style supply-chain research from AI capex — one question at a time.",
+    "prompt_zh": "用 serenity-twin：带我学 Serenity 式产业链研究，从 AI capex 开始，每次只问一个问题。"
+  },
+  {
+    "id": "brief",
+    "mode": "brief",
+    "title_en": "Morning radar brief",
+    "title_zh": "晨间 Radar 摘要",
+    "subtitle_en": "Heating tickers + corpus cross-check",
+    "subtitle_zh": "升温标的 + 语料对照",
+    "prompt_en": "Summarize daily brief Heating tickers and corpus views.",
+    "prompt_zh": "用 serenity-twin：读 daily-brief-latest.txt，总结 Heating ticker 及 corpus 观点。"
+  }
+]
