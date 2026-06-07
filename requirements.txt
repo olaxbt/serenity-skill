@@ -1,0 +1,2 @@
+# Stdlib only for core scripts (urllib, json, csv).
+# No pip packages required for fetch, sync, radar, or scorecard.
