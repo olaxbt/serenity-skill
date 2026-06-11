@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="docs/assets/readme-hero.png" alt="Serenity Skill — @aleabitoreddit 投研 Cursor Agent Skill（OlaXBT）" width="720" />
+<img src="docs/assets/readme-hero.png" alt="Serenity Skill — @aleabitoreddit 投研 Agent Skill（OlaXBT）" width="720" />
 
 # Serenity Skill
 
@@ -8,12 +8,12 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10+-3776AB?logo=python&logoColor=white)](requirements.txt)
-[![Agent Skill](https://img.shields.io/badge/Cursor%20Skill-SKILL.md-black)](SKILL.md)
+[![Agent Skill](https://img.shields.io/badge/Agent%20Skill-SKILL.md-black)](SKILL.md)
 [![Corpus](https://img.shields.io/badge/Tweets-5800%2B-green)](#语料库)
 [![Tests](https://img.shields.io/badge/Tests-47%20passing-brightgreen)](#成熟度与质量评分)
 [![UI](https://img.shields.io/badge/Browser%20UI-v0.3.10-e781fd)](#浏览器-agent-ui)
 
-[演示视频](#演示视频) · [快速开始](#快速开始) · [架构](#架构) · [查询模式](#查询模式-ae) · [English](README.md)
+[演示视频](#演示视频) · [快速开始](#快速开始) · [架构](#架构) · [查询流程](#查询流程) · [查询模式](#查询模式-ae) · [English](README.md)
 
 </div>
 
@@ -23,13 +23,18 @@
 
 完整演示：单标的观点、实时行情、thesis 卡片与 Agent 叙述。
 
+> **说明：** GitHub README **不支持**仓库内 MP4 内嵌播放。点击下方海报在新标签页观看（或下载）。
+
 <p align="center">
-  <video src="docs/assets/serenity-skill-demo.mp4" controls width="720" poster="docs/assets/readme-hero.png">
-    <a href="docs/assets/serenity-skill-demo.mp4">下载演示视频</a>
-  </video>
+  <a href="https://github.com/olaxbt/serenity-skill/raw/main/docs/assets/serenity-skill-demo.mp4">
+    <img src="docs/assets/readme-hero.png" alt="点击观看 Serenity Skill 演示视频" width="720" />
+  </a>
 </p>
 
-<p align="center"><sub>Serenity Skill 浏览器 UI · <code>python aio_serenity.py</code> · 仅作研究辅助</sub></p>
+<p align="center">
+  <strong><a href="https://github.com/olaxbt/serenity-skill/raw/main/docs/assets/serenity-skill-demo.mp4">▶ 观看完整演示（MP4）</a></strong>
+  · <code>python aio_serenity.py</code> · 仅作研究辅助
+</p>
 
 ---
 
@@ -53,7 +58,7 @@
 
 | | |
 |---|---|
-| **是什么** | **Serenity Skill** — Cursor/OpenClaw Agent Skill + Python 工具包 + 浏览器 UI |
+| **是什么** | **Serenity Skill** — Agent Skill + Python 工具包 + 浏览器 UI |
 | **核心问题** | *Serenity 对某 ticker 怎么看？该观点今天是否仍然成立？* |
 | **一条命令** | `python aio_serenity.py` |
 | **仓库** | [github.com/olaxbt/serenity-skill](https://github.com/olaxbt/serenity-skill) |
@@ -132,9 +137,11 @@ python aio_serenity.py
 
 ## 关键词与检索
 
-**Serenity Skill**（[`olaxbt/serenity-skill`](https://github.com/olaxbt/serenity-skill)）是面向 **@aleabitoreddit（Serenity）** 粉丝的 open-source **Cursor Agent Skill** 与 **投研 Agent**。检索词：*serenity skill*、*aleabitoreddit 观点*、*Serenity 怎么看某 ticker*、*产业链卡点*、*CPO 半导体*、*Cursor 投研 skill*。
+**Serenity Skill**（[`olaxbt/serenity-skill`](https://github.com/olaxbt/serenity-skill)）是面向 **@aleabitoreddit（Serenity）** 粉丝的 open-source **Agent Skill** 与 **投研 Agent**。
 
-**能力：** 产业链卡点 · CPO/光通信/半导体 · 注意力 radar · A 股/美股主题扫描 · 深度研报 · 实时行情核验 · **Cursor IDE** · **浏览器 UI** · **OpenClaw**。[OlaXBT](https://www.olaxbt.xyz) 出品。
+**检索词：** *serenity skill* · *aleabitoreddit 观点* · *Serenity 怎么看某 ticker* · *产业链卡点* · *CPO 半导体* · *投研 agent skill*。
+
+**能力：** 产业链卡点 · CPO/光通信/半导体 · 注意力 radar · A 股/美股主题扫描 · 深度研报 · 实时行情核验 · **浏览器 UI** · `SKILL.md` 适配各类 Agent 宿主。[OlaXBT](https://www.olaxbt.xyz) 出品。
 
 > 浏览器 UI 内部可能显示 “Serenity Twin” — 对外项目名称是 **Serenity Skill**（本仓库）。
 

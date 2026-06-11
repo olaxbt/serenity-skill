@@ -1,14 +1,14 @@
 <div align="center">
 
-<img src="docs/assets/readme-hero.png" alt="Serenity Skill — Cursor agent skill for @aleabitoreddit investment research by OlaXBT" width="720" />
+<img src="docs/assets/readme-hero.png" alt="Serenity Skill — @aleabitoreddit investment research agent skill by OlaXBT" width="720" />
 
 # Serenity Skill
 
-**Cursor Agent Skill + browser research agent for Serenity ([@aleabitoreddit](https://x.com/aleabitoreddit)) — distilled tweet corpus, live market data, attention radar, and supply-chain bottleneck workflows**
+**Agent Skill + browser research agent for Serenity ([@aleabitoreddit](https://x.com/aleabitoreddit)) — distilled tweet corpus, live market data, attention radar, and supply-chain bottleneck workflows**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10+-3776AB?logo=python&logoColor=white)](requirements.txt)
-[![Agent Skill](https://img.shields.io/badge/Cursor%20Skill-SKILL.md-black)](SKILL.md)
+[![Agent Skill](https://img.shields.io/badge/Agent%20Skill-SKILL.md-black)](SKILL.md)
 [![Corpus](https://img.shields.io/badge/Tweets-5800%2B-green)](#corpus)
 [![Tests](https://img.shields.io/badge/Tests-47%20passing-brightgreen)](#maturity--quality-grade)
 [![UI](https://img.shields.io/badge/Browser%20UI-v0.3.10-e781fd)](#browser-agent-ui)
@@ -23,13 +23,20 @@
 
 Full walkthrough: ticker view, live quotes, thesis cards, and agent narrative in the browser UI.
 
+> **Note:** GitHub README does **not** play inline `<video>` from repo files. Click the poster below to open the MP4 in your browser (or download it).
+
 <p align="center">
-  <video src="docs/assets/serenity-skill-demo.mp4" controls width="720" poster="docs/assets/readme-hero.png">
-    <a href="docs/assets/serenity-skill-demo.mp4">Download demo video</a>
-  </video>
+  <a href="https://github.com/olaxbt/serenity-skill/raw/main/docs/assets/serenity-skill-demo.mp4">
+    <img src="docs/assets/readme-hero.png" alt="Watch Serenity Skill demo — click to play video" width="720" />
+  </a>
 </p>
 
-<p align="center"><sub>Serenity Skill browser UI · <code>python aio_serenity.py</code> · research support only</sub></p>
+<p align="center">
+  <strong><a href="https://github.com/olaxbt/serenity-skill/raw/main/docs/assets/serenity-skill-demo.mp4">▶ Watch full demo (MP4)</a></strong>
+  · <code>python aio_serenity.py</code> · research support only
+</p>
+
+<p align="center"><sub>Want autoplay on the README page? Host a short clip on YouTube, or add a lightweight GIF under <code>docs/assets/</code> (keep under ~5&nbsp;MB for fast loads).</sub></p>
 
 ---
 
@@ -71,10 +78,10 @@ Re-run `python -m pytest tests/ -q` after corpus edits. Tune narrative quality v
 
 | | |
 |---|---|
-| **What** | **Serenity Skill** — Cursor/OpenClaw Agent Skill + Python toolkit + browser UI for Serenity-style bottleneck investment research |
+| **What** | **Serenity Skill** — Agent Skill + Python toolkit + browser UI for Serenity-style bottleneck investment research |
 | **Primary question** | *What does Serenity think about ticker X — and is that view still valid today?* |
 | **One command** | `python aio_serenity.py` — auto-init + browser research agent ([OlaXBT](https://www.olaxbt.xyz)) |
-| **Stack** | Python 3.10+ (stdlib core), optional DeepSeek / X API, Cursor or OpenClaw |
+| **Stack** | Python 3.10+ (stdlib core), optional DeepSeek / X API; works with any compatible agent host |
 | **Repo** | [github.com/olaxbt/serenity-skill](https://github.com/olaxbt/serenity-skill) |
 | **Maturity** | **8.9 / 10** — production-ready research MVP ([details](#maturity--quality-grade)) |
 
@@ -337,9 +344,11 @@ Unified from three open-source Serenity skill projects:
 
 ## Keywords & discoverability
 
-**Serenity Skill** ([`olaxbt/serenity-skill`](https://github.com/olaxbt/serenity-skill)) is an open-source **Cursor Agent Skill** and **investment research agent** for followers of **@aleabitoreddit** (Serenity). Search terms: *serenity skill*, *serenity aleabitoreddit*, *what does Serenity think about*, *Serenity ticker thesis*, *CPO bottleneck stocks*, *attention radar investing*, *Cursor agent skill investing*.
+**Serenity Skill** ([`olaxbt/serenity-skill`](https://github.com/olaxbt/serenity-skill)) is an open-source **Agent Skill** and **investment research agent** for followers of **@aleabitoreddit** (Serenity).
 
-**Topics:** supply-chain bottleneck analysis · CPO / optical / semiconductor theses · attention radar · A-share and US equity theme scans · thesis memos · live market verification (Yahoo quotes, news, SEC) · **Cursor IDE** · bundled **browser UI** · **OpenClaw**.
+**Search terms:** *serenity skill* · *serenity aleabitoreddit* · *what does Serenity think about* · *Serenity ticker thesis* · *CPO bottleneck stocks* · *attention radar investing* · *supply chain bottleneck research* · *AI semiconductor theme scan*.
+
+**Capabilities:** supply-chain bottleneck analysis · CPO / optical / semiconductor theses · attention radar · A-share and US equity theme scans · thesis memos · live market verification (Yahoo quotes, news, SEC) · bundled **browser UI** · `SKILL.md` for agent hosts.
 
 > The browser UI may show “Serenity Twin” internally — the public project name is **Serenity Skill** (this repo).
 
@@ -347,12 +356,12 @@ Unified from three open-source Serenity skill projects:
 
 | Question | Answer |
 |----------|--------|
-| **What is Serenity Skill?** | A Cursor/OpenClaw Agent Skill + Python toolkit that distills @aleabitoreddit’s public research into queryable corpus + live-aware workflows. |
-| **How do I ask “what does Serenity think about $TICKER”?** | Run `python aio_serenity.py` or load `SKILL.md` in Cursor Agent mode — scripts auto-fetch thesis + live quotes. |
+| **What is Serenity Skill?** | An Agent Skill + Python toolkit that distills @aleabitoreddit’s public research into a queryable corpus + live-aware workflows. |
+| **How do I ask “what does Serenity think about $TICKER”?** | Run `python aio_serenity.py`, or load `SKILL.md` in your agent host — scripts auto-fetch thesis + live quotes. |
 | **Is this official or affiliated with Serenity?** | No — independent research distill by [OlaXBT](https://www.olaxbt.xyz). Not investment advice. |
-| **Cursor vs browser UI?** | Same scripts; Cursor uses your IDE models, browser UI uses optional `DEEPSEEK_API_KEY`. |
+| **Agent host vs browser UI?** | Same scripts and corpus. Browser UI uses optional `DEEPSEEK_API_KEY`; agent hosts use their own LLM via `SKILL.md`. |
 
-**GitHub repo topics (suggested):** `cursor-agent`, `agent-skill`, `investment-research`, `aleabitoreddit`, `supply-chain`, `semiconductor`, `cpo`, `python`.
+**GitHub repo topics (suggested):** `agent-skill`, `ai-agent`, `investment-research`, `aleabitoreddit`, `supply-chain`, `semiconductor`, `cpo`, `python`, `open-source`.
 
 ---
 
