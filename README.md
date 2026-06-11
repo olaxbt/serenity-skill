@@ -23,11 +23,11 @@
 
 Full walkthrough: ticker view, live quotes, thesis cards, and agent narrative in the browser UI.
 
-> **Note:** GitHub README does **not** play inline `<video>` from repo files. Click the poster below to open the MP4 in your browser (or download it).
+> **Note:** GitHub README does **not** play inline `<video>` — use the link below (or add an optional short GIF at `docs/assets/serenity-skill-demo.gif` for autoplay in-page).
 
 <p align="center">
   <a href="https://github.com/olaxbt/serenity-skill/raw/main/docs/assets/serenity-skill-demo.mp4">
-    <img src="docs/assets/readme-hero.png" alt="Watch Serenity Skill demo — click to play video" width="720" />
+    <img src="docs/assets/readme-hero.png" alt="Click to watch Serenity Skill demo video" width="720" />
   </a>
 </p>
 
@@ -35,8 +35,6 @@ Full walkthrough: ticker view, live quotes, thesis cards, and agent narrative in
   <strong><a href="https://github.com/olaxbt/serenity-skill/raw/main/docs/assets/serenity-skill-demo.mp4">▶ Watch full demo (MP4)</a></strong>
   · <code>python aio_serenity.py</code> · research support only
 </p>
-
-<p align="center"><sub>Want autoplay on the README page? Host a short clip on YouTube, or add a lightweight GIF under <code>docs/assets/</code> (keep under ~5&nbsp;MB for fast loads).</sub></p>
 
 ---
 
@@ -78,10 +76,10 @@ Re-run `python -m pytest tests/ -q` after corpus edits. Tune narrative quality v
 
 | | |
 |---|---|
-| **What** | **Serenity Skill** — Agent Skill + Python toolkit + browser UI for Serenity-style bottleneck investment research |
+| **What** | **Serenity Skill** — Agent Skill (`SKILL.md`) + Python toolkit + browser UI for Serenity-style bottleneck investment research |
 | **Primary question** | *What does Serenity think about ticker X — and is that view still valid today?* |
 | **One command** | `python aio_serenity.py` — auto-init + browser research agent ([OlaXBT](https://www.olaxbt.xyz)) |
-| **Stack** | Python 3.10+ (stdlib core), optional DeepSeek / X API; works with any compatible agent host |
+| **Stack** | Python 3.10+ (stdlib core), optional DeepSeek / X API, any Agent-compatible IDE or OpenClaw |
 | **Repo** | [github.com/olaxbt/serenity-skill](https://github.com/olaxbt/serenity-skill) |
 | **Maturity** | **8.9 / 10** — production-ready research MVP ([details](#maturity--quality-grade)) |
 
@@ -119,7 +117,7 @@ Serenity Skill packages four things other tools don't combine:
 ### Requirements
 
 - **Python 3.10+** — core scripts use stdlib only (no `pip install` required)
-- **Optional:** DeepSeek in `.env` (browser UI LLM) or Cursor Settings → Models (chat)
+- **Optional:** DeepSeek in `.env` (browser UI LLM) or your IDE’s model settings (agent chat)
 - **Optional:** `X_BEARER_TOKEN` for live tweet sync
 
 ### One command (recommended)
@@ -132,8 +130,8 @@ python aio_serenity.py
 
 | Step | What happens |
 |------|----------------|
-| **First run** | Auto-runs `init_system.py` — validate skill, normalize corpus, split theses, rebuild mentions, QC, install Cursor skill, seed `.env` |
-| **Every run** | Opens UI at `http://127.0.0.1:17876` — prompts **system browser** or **Cursor Simple Browser** |
+| **First run** | Auto-runs `init_system.py` — validate skill, normalize corpus, split theses, rebuild mentions, QC, install agent skill, seed `.env` |
+| **Every run** | Opens UI at `http://127.0.0.1:17876` — system browser or IDE embedded preview |
 | **Each prompt** | Server auto-runs `lookup_ticker.py` + `live_research.py` + structured HTML report |
 
 You **never** manually run lookup or live-research per question — the UI and Agent do that.
@@ -141,12 +139,12 @@ You **never** manually run lookup or live-research per question — the UI and A
 ```bash
 python aio_serenity.py --init          # init only
 python aio_serenity.py --port 3000     # custom port
-python aio_serenity.py --open cursor   # Cursor Simple Browser (inside IDE)
+python aio_serenity.py --open cursor   # IDE embedded browser (e.g. VS Code / Cursor Simple Browser)
 python aio_serenity.py --open browser  # system browser
 python aio_serenity.py --no-browser    # headless server — URL in terminal
 ```
 
-**Cursor Simple Browser:** point it at `http://127.0.0.1:17876` while the server is running (not the raw `index.html` file). Manual: `Ctrl+Shift+P` → **Simple Browser: Show** → paste URL.
+**IDE preview:** point your IDE’s simple browser at `http://127.0.0.1:17876` while the server is running (not the raw `index.html` file).
 
 **`.env`:** remove `#` from the key line — `# DEEPSEEK_API_KEY=...` is a comment and is ignored.
 
@@ -159,10 +157,10 @@ More: [`docs/QUICKSTART.md`](docs/QUICKSTART.md)
 | Surface | Command / trigger | Best for |
 |---------|-------------------|----------|
 | **Browser agent UI** | `python aio_serenity.py` | Testing prompts, tables, price charts, bilingual UI, SSE streaming |
-| **Cursor Chat** | Agent mode + `serenity-skill` / natural question | Deep research sessions, web search, editing corpus |
+| **IDE agent chat** | Load `SKILL.md` + natural question | Deep research sessions, web search, editing corpus |
 | **OpenClaw** | Install skill + gateway web tools | 24/7 cron, Telegram briefs ([`docs/SETUP.md`](docs/SETUP.md)) |
 
-All three surfaces share the same Python scripts and corpus. Only the **LLM narration layer** differs (DeepSeek in browser vs Cursor models in chat).
+All surfaces share the same Python scripts and corpus. Only the **LLM narration layer** differs (DeepSeek in browser vs your IDE agent model in chat).
 
 ---
 
@@ -248,23 +246,23 @@ Light-mode interface (purple accent `#e781fd`, **v0.3.10**) with **English / 中
 |---------|--------|
 | Entry | `python aio_serenity.py` |
 | Default URL | `http://127.0.0.1:17876` (auto next port if busy) |
-| **Agent plan UX** | Cursor-style step list — route → corpus → live web → render → LLM — with streaming progress |
+| **Agent plan UX** | Step list (route → corpus → live web → render → LLM) with streaming progress |
 | Auto live web | Yahoo quote, 3M chart, news search, SEC — every analysis prompt; crypto uses spot symbols (`BTC-USD`, not ETF tickers) |
 | Structured output | Tables, metric cards, thesis cards — references demoted to collapsible section |
 | **Agent narrative** | Auto-enabled when `DEEPSEEK_API_KEY` is in `.env` — rendered as markdown at top of report |
 | **Answer locale** | Detected from your prompt text — English prompts get English section headers |
 | **Task-oriented prompts** | Sidebar labels describe research tasks — see [`ui/prompts.json`](ui/prompts.json) |
 | Session history | SQLite at `corpus/data/sessions.db` (v0.3+) |
-| **Cursor Auto / Codex** | **Not available in browser** — use Cursor Agent chat + `SKILL.md` instead |
+| **IDE-only models** | **Not available in browser** — use agent chat + `SKILL.md` in your IDE instead |
 
-### Why can't the browser use Cursor Auto/Codex?
+### Why can't the browser use IDE built-in models?
 
-The browser UI is a **standalone Python server** (`aio_serenity.py`). It runs outside the Cursor IDE and **cannot call Cursor's built-in models** — those APIs are only available inside Cursor Agent chat.
+The browser UI is a **standalone Python server** (`aio_serenity.py`). It cannot call models that are only available inside an IDE agent runtime.
 
 | Surface | Agent narrative | How |
 |---------|----------------|-----|
 | **Browser UI** | Needs `DEEPSEEK_API_KEY` in `.env` | Python server calls DeepSeek directly |
-| **Cursor Agent** | Uses your Cursor model (Auto, Codex, …) | Load skill → ask in Agent mode — **no browser API key** |
+| **IDE agent** | Uses your IDE’s configured model | Load `SKILL.md` → ask in agent mode — **no browser API key** |
 
 ---
 
@@ -301,7 +299,7 @@ Daily automation (Windows): [`scripts/daily_brief.ps1`](scripts/daily_brief.ps1)
 | [`scripts/lookup_ticker.py`](scripts/lookup_ticker.py) | Thesis + tweets + radar hint | no |
 | [`scripts/live_research.py`](scripts/live_research.py) | Quote + news + SEC | yes |
 | [`scripts/radar.py`](scripts/radar.py) | Attention momentum | no |
-| [`SKILL.md`](SKILL.md) | Cursor / OpenClaw Agent Skill entry | — |
+| [`SKILL.md`](SKILL.md) | Agent Skill entry (IDE + OpenClaw) | — |
 
 ---
 
@@ -309,7 +307,7 @@ Daily automation (Windows): [`scripts/daily_brief.ps1`](scripts/daily_brief.ps1)
 
 | Use | Where |
 |-----|-------|
-| Cursor chat LLM | **Cursor Settings → Models** |
+| IDE agent chat LLM | Your IDE’s model settings |
 | Browser UI LLM (optional) | `.env` → `DEEPSEEK_API_KEY` |
 | Live tweet sync (optional) | `.env` → `X_BEARER_TOKEN` + `config.json` |
 
@@ -346,9 +344,9 @@ Unified from three open-source Serenity skill projects:
 
 **Serenity Skill** ([`olaxbt/serenity-skill`](https://github.com/olaxbt/serenity-skill)) is an open-source **Agent Skill** and **investment research agent** for followers of **@aleabitoreddit** (Serenity).
 
-**Search terms:** *serenity skill* · *serenity aleabitoreddit* · *what does Serenity think about* · *Serenity ticker thesis* · *CPO bottleneck stocks* · *attention radar investing* · *supply chain bottleneck research* · *AI semiconductor theme scan*.
+**Search terms:** *serenity skill*, *serenity aleabitoreddit*, *what does Serenity think about*, *Serenity ticker thesis*, *CPO bottleneck stocks*, *attention radar investing*, *supply chain bottleneck research*, *agent skill investing*.
 
-**Capabilities:** supply-chain bottleneck analysis · CPO / optical / semiconductor theses · attention radar · A-share and US equity theme scans · thesis memos · live market verification (Yahoo quotes, news, SEC) · bundled **browser UI** · `SKILL.md` for agent hosts.
+**Capabilities:** supply-chain bottleneck analysis · CPO / optical / semiconductor theses · attention radar · A-share and US equity theme scans · thesis memos · live market verification (Yahoo quotes, news, SEC) · **browser UI** · **IDE agent** (`SKILL.md`) · **OpenClaw**.
 
 > The browser UI may show “Serenity Twin” internally — the public project name is **Serenity Skill** (this repo).
 
@@ -356,12 +354,12 @@ Unified from three open-source Serenity skill projects:
 
 | Question | Answer |
 |----------|--------|
-| **What is Serenity Skill?** | An Agent Skill + Python toolkit that distills @aleabitoreddit’s public research into a queryable corpus + live-aware workflows. |
-| **How do I ask “what does Serenity think about $TICKER”?** | Run `python aio_serenity.py`, or load `SKILL.md` in your agent host — scripts auto-fetch thesis + live quotes. |
+| **What is Serenity Skill?** | An Agent Skill (`SKILL.md`) + Python toolkit that distills @aleabitoreddit’s public research into queryable corpus + live-aware workflows. |
+| **How do I ask “what does Serenity think about $TICKER”?** | Run `python aio_serenity.py` or load `SKILL.md` in your IDE agent — scripts auto-fetch thesis + live quotes. |
 | **Is this official or affiliated with Serenity?** | No — independent research distill by [OlaXBT](https://www.olaxbt.xyz). Not investment advice. |
-| **Agent host vs browser UI?** | Same scripts and corpus. Browser UI uses optional `DEEPSEEK_API_KEY`; agent hosts use their own LLM via `SKILL.md`. |
+| **IDE agent vs browser UI?** | Same scripts; IDE agent uses your configured model, browser UI uses optional `DEEPSEEK_API_KEY`. |
 
-**GitHub repo topics (suggested):** `agent-skill`, `ai-agent`, `investment-research`, `aleabitoreddit`, `supply-chain`, `semiconductor`, `cpo`, `python`, `open-source`.
+**GitHub repo topics (suggested):** `agent-skill`, `investment-research`, `aleabitoreddit`, `supply-chain`, `semiconductor`, `cpo`, `python`, `openclaw`.
 
 ---
 

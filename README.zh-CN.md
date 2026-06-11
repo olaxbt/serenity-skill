@@ -13,7 +13,7 @@
 [![Tests](https://img.shields.io/badge/Tests-47%20passing-brightgreen)](#成熟度与质量评分)
 [![UI](https://img.shields.io/badge/Browser%20UI-v0.3.10-e781fd)](#浏览器-agent-ui)
 
-[演示视频](#演示视频) · [快速开始](#快速开始) · [架构](#架构) · [查询流程](#查询流程) · [查询模式](#查询模式-ae) · [English](README.md)
+[演示视频](#演示视频) · [快速开始](#快速开始) · [查询模式](#查询模式-a–e) · [关键词与检索](#关键词与检索) · [English](README.md)
 
 </div>
 
@@ -23,7 +23,7 @@
 
 完整演示：单标的观点、实时行情、thesis 卡片与 Agent 叙述。
 
-> **说明：** GitHub README **不支持**仓库内 MP4 内嵌播放。点击下方海报在新标签页观看（或下载）。
+> **说明：** GitHub README **不支持**内嵌 `<video>` 播放 — 请点击下方链接观看（可选：添加短 GIF 至 `docs/assets/serenity-skill-demo.gif` 实现页内自动播放）。
 
 <p align="center">
   <a href="https://github.com/olaxbt/serenity-skill/raw/main/docs/assets/serenity-skill-demo.mp4">
@@ -58,7 +58,7 @@
 
 | | |
 |---|---|
-| **是什么** | **Serenity Skill** — Agent Skill + Python 工具包 + 浏览器 UI |
+| **是什么** | **Serenity Skill** — Agent Skill（`SKILL.md`）+ Python 工具包 + 浏览器 UI |
 | **核心问题** | *Serenity 对某 ticker 怎么看？该观点今天是否仍然成立？* |
 | **一条命令** | `python aio_serenity.py` |
 | **仓库** | [github.com/olaxbt/serenity-skill](https://github.com/olaxbt/serenity-skill) |
@@ -99,7 +99,7 @@ python aio_serenity.py
 | 入口 | 适合 |
 |------|------|
 | **浏览器 UI** | 试 prompt、表格、价格图、中英 UI |
-| **Cursor Chat** | Agent 模式 + `serenity-skill` |
+| **IDE Agent 聊天** | 加载 `SKILL.md` + 自然语言提问 |
 | **OpenClaw** | 24/7 cron、Telegram |
 
 ---
@@ -139,11 +139,22 @@ python aio_serenity.py
 
 **Serenity Skill**（[`olaxbt/serenity-skill`](https://github.com/olaxbt/serenity-skill)）是面向 **@aleabitoreddit（Serenity）** 粉丝的 open-source **Agent Skill** 与 **投研 Agent**。
 
-**检索词：** *serenity skill* · *aleabitoreddit 观点* · *Serenity 怎么看某 ticker* · *产业链卡点* · *CPO 半导体* · *投研 agent skill*。
+**检索词：** *serenity skill*、*aleabitoreddit 观点*、*Serenity 怎么看某 ticker*、*产业链卡点*、*CPO 半导体*、*agent skill 投研*。
 
-**能力：** 产业链卡点 · CPO/光通信/半导体 · 注意力 radar · A 股/美股主题扫描 · 深度研报 · 实时行情核验 · **浏览器 UI** · `SKILL.md` 适配各类 Agent 宿主。[OlaXBT](https://www.olaxbt.xyz) 出品。
+**能力：** 产业链卡点 · CPO/光通信/半导体 · 注意力 radar · A 股/美股主题扫描 · 深度研报 · 实时行情核验 · **浏览器 UI** · **IDE Agent**（`SKILL.md`）· **OpenClaw**。[OlaXBT](https://www.olaxbt.xyz) 出品。
 
 > 浏览器 UI 内部可能显示 “Serenity Twin” — 对外项目名称是 **Serenity Skill**（本仓库）。
+
+### 常见问题
+
+| 问题 | 回答 |
+|------|------|
+| **Serenity Skill 是什么？** | 将 @aleabitoreddit 公开研究蒸馏为可查询语料 + 可联网工作流的 Agent Skill + Python 工具包。 |
+| **如何问「Serenity 怎么看 $TICKER」？** | 运行 `python aio_serenity.py`，或在 IDE Agent 中加载 `SKILL.md` — 脚本自动拉 thesis + 现价。 |
+| **是否 Serenity 官方？** | 否 — [OlaXBT](https://www.olaxbt.xyz) 独立开发，不构成投资建议。 |
+| **IDE Agent vs 浏览器 UI？** | 同一套脚本；IDE 用你配置的模型，浏览器用可选 `DEEPSEEK_API_KEY`。 |
+
+**GitHub 仓库 Topics（建议）：** `agent-skill`, `investment-research`, `aleabitoreddit`, `supply-chain`, `semiconductor`, `cpo`, `python`, `openclaw`
 
 ---
 
