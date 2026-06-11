@@ -14,8 +14,10 @@ from typing import Any
 from serenity_twin.paths import ROOT
 
 ENV_FILE = ROOT / ".env"
-USER_AGENT = "SerenityTwin/0.2 (research-ui; +https://github.com/YOUR_ORG/serenity-twin)"
-REQUEST_TIMEOUT = 20
+USER_AGENT = "SerenityTwin/0.3 (research-ui; +https://github.com/olaxbt/serenity-skill)"
+REQUEST_TIMEOUT = 10
+PROBE_TIMEOUT = 5
+MAX_YAHOO_SUFFIX_TRIES = 2
 
 
 def _http_get(url: str, *, headers: dict[str, str] | None = None) -> str:
@@ -78,13 +80,18 @@ def fetch_quote(ticker: str) -> dict[str, Any]:
     if t in CRYPTO_SPOT_ALIASES:
         candidates = [CRYPTO_SPOT_ALIASES[t]]
     elif re.fullmatch(r"[A-Z]{2,5}", t):
-        for suffix in (".ST", ".OL", ".CO", ".HE", ".PA", ".DE"):
+        for suffix in (".ST", ".OL"):
             alt = f"{t}{suffix}"
             if alt not in candidates:
                 candidates.append(alt)
 
     last_error = ""
+    suffix_tries = 0
     for sym in candidates:
+        if sym != t:
+            suffix_tries += 1
+            if suffix_tries > MAX_YAHOO_SUFFIX_TRIES:
+                break
         url = (
             "https://query1.finance.yahoo.com/v8/finance/chart/"
             + urllib.parse.quote(sym)
@@ -307,8 +314,12 @@ def format_live_web_markdown(live: dict[str, Any]) -> str:
 
 
 def probe_web_available() -> bool:
+    """Startup connectivity check — Yahoo chart API reachable from this machine."""
+    url = "https://query1.finance.yahoo.com/v8/finance/chart/AAPL?interval=1d&range=5d"
     try:
-        _http_get("https://query1.finance.yahoo.com/v8/finance/chart/AAPL?interval=1d&range=5d")
+        req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT}, method="GET")
+        with urllib.request.urlopen(req, timeout=PROBE_TIMEOUT) as resp:
+            resp.read(512)
         return True
-    except (urllib.error.URLError, urllib.error.HTTPError):
+    except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError, OSError):
         return False

@@ -6,7 +6,7 @@
   "links": [
     { "label_en": "OlaXBT", "label_zh": "OlaXBT 官网", "url": "https://www.olaxbt.xyz", "icon": "◆" },
     { "label_en": "AI Market Maker", "label_zh": "AI Market Maker", "url": "https://github.com/olaxbt/ai-market-maker", "icon": "⬡" },
-    { "label_en": "Serenity Twin (repo)", "label_zh": "Serenity Twin 仓库", "url": "https://github.com/olaxbt/serenity-skill", "icon": "◎" },
+    { "label_en": "Serenity Skill (repo)", "label_zh": "Serenity Skill 仓库", "url": "https://github.com/olaxbt/serenity-skill", "icon": "◎" },
     { "label_en": "X / Twitter", "label_zh": "X / Twitter", "url": "https://x.com/olaxbt_terminal", "icon": "𝕏" },
     { "label_en": "Medium", "label_zh": "Medium", "url": "https://medium.com/olaxbt", "icon": "M" },
     { "label_en": "YouTube", "label_zh": "YouTube", "url": "https://www.youtube.com/@Olaxbt", "icon": "▶" },

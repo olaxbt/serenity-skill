@@ -40,20 +40,44 @@ STOPWORDS = frozenset(
         "ETF",
         "HK",
         "US",
+        "DEEP",
+        "SCAN",
+        "STOCK",
+        "CHAIN",
+        "THEN",
+        "FIT",
+        "FIRST",
+        "LAYER",
+        "LAYERS",
+        "THEME",
+        "SUPPLY",
     }
 )
 
+# Theme / radar prompts: only trust explicit $TICKER — not words like "Deep scan" → DEEP.
+EXPLICIT_TICKER_MODES = frozenset({"B", "C"})
 
-def extract_ticker(text: str) -> str | None:
+
+def extract_ticker(text: str, *, explicit_only: bool = False) -> str | None:
     upper = text.upper()
     m = TICKER_DOLLAR.search(upper)
     if m:
         return m.group(1)
+    if explicit_only:
+        return None
     for m in TICKER_ISOLATED.finditer(upper):
         t = m.group(1)
         if t not in STOPWORDS:
             return t
     return None
+
+
+def resolve_ticker(prompt: str, mode: str, ticker: str | None = None) -> str | None:
+    """Pick ticker for routing/display; theme modes ignore incidental ALL-CAPS words."""
+    if ticker:
+        return ticker.upper().lstrip("$")
+    explicit_only = mode in EXPLICIT_TICKER_MODES
+    return extract_ticker(prompt, explicit_only=explicit_only)
 
 
 def _import_script_module(name: str, rel_path: str) -> Any:
@@ -83,7 +107,23 @@ def detect_mode(prompt: str) -> str:
         return "B"
     if any(k in p for k in ("深度研报", "thesis memo", "thesis-template", "研报")):
         return "D"
-    if any(k in p for k in ("深度调研", "产业链", "a股", "a-share", "theme scan", "etf", "基金", "scorecard")):
+    if any(
+        k in p
+        for k in (
+            "深度调研",
+            "产业链",
+            "a股",
+            "a-share",
+            "theme scan",
+            "deep scan",
+            "supply chain",
+            "supply-chain",
+            "semiconductor",
+            "etf",
+            "基金",
+            "scorecard",
+        )
+    ):
         return "C"
     if any(
         k in p
@@ -144,10 +184,10 @@ def enrich_live_web(ctx: dict[str, Any], mode: str, prompt: str) -> None:
             heating = [r["ticker"] for r in ctx["radar"].get("heating", [])[:3]]
             if heating:
                 ctx["live_web"] = research_radar_tickers(heating)
+        elif mode in ("C", "D") and not ctx.get("ticker"):
+            ctx["live_web"] = research_theme(prompt)
         elif ctx.get("ticker"):
             ctx["live_web"] = research_ticker(ctx["ticker"])
-        elif mode in ("C", "D"):
-            ctx["live_web"] = research_theme(prompt)
         elif mode == "A":
             t = extract_ticker(prompt)
             if t:
@@ -161,7 +201,7 @@ def enrich_live_web(ctx: dict[str, Any], mode: str, prompt: str) -> None:
 def build_context(mode: str, prompt: str, ticker: str | None) -> dict[str, Any]:
     ctx: dict[str, Any] = {"mode": mode, "prompt": prompt}
     if mode == "A" or (mode in ("C", "D", "E") and ticker):
-        t = ticker or extract_ticker(prompt)
+        t = resolve_ticker(prompt, mode, ticker)
         if t:
             ctx["ticker"] = t
             ctx["lookup"] = run_lookup(t)
@@ -214,18 +254,41 @@ def deterministic_markdown(mode: str, ctx: dict[str, Any]) -> str:
     if ctx.get("daily_brief"):
         parts.append("## Daily brief\n\n" + ctx["daily_brief"])
 
-    if mode == "C":
+    if mode == "B" and ctx.get("radar"):
         parts.append(
-            "## Mode C synthesis\n\n"
-            "Layer ranking uses live web sources above + Serenity methodology. "
-            "Set `DEEPSEEK_API_KEY` for full LLM narrative, or use Cursor Agent."
+            "## Executive summary\n\n"
+            "Radar tables above show 14-day mention momentum. "
+            "Cross-check heating names against corpus theses before acting on signals.\n\n"
+            "## Research priorities\n\n"
+            "- Review heating tickers against `lookup_ticker` thesis coverage\n"
+            "- Flag new entrants with no deep thesis as *research map* only"
+        )
+    if mode == "C":
+        live = ctx.get("live_web") or {}
+        query = live.get("query") or "theme scan"
+        parts.append(
+            f"## Executive summary\n\n"
+            f"Theme scan for: {query[:160]}. "
+            "Layer ranking and stock shortlist require agent synthesis — see structured bullets above.\n\n"
+            "## Next verification steps\n\n"
+            "- Rank value-chain layers before naming tickers\n"
+            "- Cross-check candidates with Serenity corpus (`lookup_ticker`)\n"
+            "- Set `DEEPSEEK_API_KEY` for full narrative, or use Cursor Agent"
         )
     if mode == "D":
         tpl = ROOT / "reasoning" / "assets" / "thesis-template.md"
+        parts.append(
+            "## Executive summary\n\n"
+            "Structured memo skeleton below. Set `DEEPSEEK_API_KEY` for a full narrative memo."
+        )
         if tpl.exists():
             parts.append("## Report skeleton\n\n" + tpl.read_text(encoding="utf-8")[:4000])
     if mode == "E":
-        parts.append("## Mode E — Learning\n\nLive web skipped for tutoring mode.")
+        parts.append(
+            "## This turn's question\n\n"
+            "Method coaching mode — one focused question per turn. "
+            "Live web is skipped; respond in Agent chat for guided Q&A."
+        )
 
     parts.append("\n---\n*Research support only. Not investment advice.*")
     return "\n\n".join(parts)
@@ -262,26 +325,54 @@ def handle_prompt_stream(
     from serenity_twin.ui_render import build_structured, render_agent_slot, render_html
 
     mode = mode or detect_mode(prompt)
-    ticker = ticker or extract_ticker(prompt)
+    ticker = resolve_ticker(prompt, mode, ticker)
     ui_locale = locale if locale in ("en", "zh") else "zh"
     prompt_locale = detect_prompt_locale(prompt, ui_locale)
     llm_available = load_deepseek_key() is not None
 
     yield _progress_event("route", f"Mode {mode}" + (f" · ${ticker}" if ticker else ""))
 
+    ctx: dict[str, Any] = {"mode": mode, "prompt": prompt}
     if mode == "B":
         yield _progress_event("radar", "Computing attention radar…")
+        data, text = run_radar()
+        ctx["radar"] = data
+        ctx["radar_text"] = text
     elif mode == "brief":
         yield _progress_event("brief", "Loading daily brief…")
+        latest = DATA / "daily-brief-latest.txt"
+        ctx["daily_brief"] = latest.read_text(encoding="utf-8") if latest.exists() else None
+        try:
+            data, text = run_radar()
+            ctx["radar"] = data
+            ctx["radar_text"] = text
+        except Exception:
+            pass
     elif mode != "E":
-        yield _progress_event("corpus", "Loading Serenity corpus…")
+        label = f"${ticker}" if ticker else "corpus"
+        yield _progress_event("corpus", f"Loading Serenity corpus for {label}…")
+        if mode == "A" or (mode in ("C", "D", "E") and ticker):
+            t = resolve_ticker(prompt, mode, ticker)
+            if t:
+                ctx["ticker"] = t
+                ctx["lookup"] = run_lookup(t)
 
     if mode in ("A", "B", "C", "D"):
-        yield _progress_event("live_web", "Running live web research…")
+        yield _progress_event("live_web", "Fetching quote, news, and SEC…")
+        enrich_live_web(ctx, mode, prompt)
 
-    ctx = build_context(mode, prompt, ticker)
-    if mode not in ("E", "brief"):
+    if mode not in ("E", "brief") and ctx.get("lookup") and ctx.get("ticker"):
         yield _progress_event("stale", "Checking thesis freshness…")
+        from serenity_twin.stale_check import assess_stale
+
+        lookup = ctx["lookup"]
+        th_md = (lookup.get("thesis") or {}).get("markdown")
+        quote = (ctx.get("live_web") or {}).get("quote")
+        ctx["stale"] = assess_stale(
+            thesis_markdown=th_md,
+            quote=quote if isinstance(quote, dict) else None,
+            recent_tweets=lookup.get("recent_tweets"),
+        )
 
     yield _progress_event("render", "Building structured report…")
 
@@ -319,7 +410,10 @@ def handle_prompt_stream(
                 base_result["llm_used"] = True
                 base_result["markdown"] = llm_narrative
                 base_result["llm_narrative"] = llm_narrative
+                from serenity_twin.agent_output import check_answer_structure
+
                 base_result["locale_issues"] = check_answer_locale(llm_narrative, prompt_locale)
+                base_result["structure_issues"] = check_answer_structure(llm_narrative, mode, prompt_locale)
         except Exception as exc:
             yield {"type": "error", "message": str(exc)}
 
@@ -335,7 +429,7 @@ def handle_prompt(
     locale: str = "zh",
 ) -> dict[str, Any]:
     mode = mode or detect_mode(prompt)
-    ticker = ticker or extract_ticker(prompt)
+    ticker = resolve_ticker(prompt, mode, ticker)
     ctx = build_context(mode, prompt, ticker)
     ui_locale = locale if locale in ("en", "zh") else "zh"
     prompt_locale = detect_prompt_locale(prompt, ui_locale)

@@ -113,7 +113,7 @@ class SerenityUIHandler(BaseHTTPRequestHandler):
                     "live_web_available": probe_web_available(),
                     "auto_live_web": True,
                     "agent_parity": True,
-                    "ui_version": "0.3.8",
+                    "ui_version": "0.3.10",
                     "env_path": str(ENV_FILE),
                     "env_exists": env_exists,
                     "cursor_alternative": True,

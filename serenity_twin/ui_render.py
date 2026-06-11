@@ -71,6 +71,8 @@ LABELS = {
         "mode_brief_title": "Daily brief summary",
         "prev_14d": "Prior 14d",
         "llm_pending": "Add DEEPSEEK_API_KEY in .env for extended agent narrative.",
+        "theme_live_web": "Theme live web scan",
+        "theme_live_note": "Industry scan uses news search — not a single-stock chart. Layer ranking and stock shortlist come from the agent narrative.",
     },
     "zh": {
         "ticker_lookup": "标的分析",
@@ -136,6 +138,8 @@ LABELS = {
         "mode_brief_title": "Daily brief 摘要",
         "prev_14d": "前 14 天",
         "llm_pending": "在 .env 配置 DEEPSEEK_API_KEY 可启用扩展 Agent 叙述。",
+        "theme_live_web": "主题联网检索",
+        "theme_live_note": "产业链扫描以新闻检索为主，不展示单股走势图。层级排序与个股 shortlist 由 Agent 叙述输出。",
     },
 }
 
@@ -338,15 +342,24 @@ def _build_synthesis_bullets(ctx: dict[str, Any], mode: str, locale: str) -> lis
                 bullets.append("Cross-check heating names against corpus theses in tables below.")
 
     elif mode == "C":
-        bullets.extend([
-            "Map the theme to supply-chain layers (scarce → design-around risk → beneficiaries).",
-            "Rank layers using live web sources + Serenity methodology before naming stocks.",
-            "ETF fit only when user asks — default is bottleneck equities.",
-        ] if locale == "en" else [
-            "将主题映射到产业链层级（稀缺 → 难替代 → 受益环节）。",
-            "结合联网来源与 Serenity 方法论先排层，再落到个股。",
-            "仅在用户询问时讨论 ETF — 默认聚焦瓶颈个股。",
-        ])
+        live = ctx.get("live_web") or {}
+        query = (live.get("query") or "")[:120]
+        if locale == "en":
+            if query:
+                bullets.append(f"Theme query: {query}")
+            bullets.extend([
+                "Layer ranking: scarce supply → design-around risk → beneficiaries.",
+                "Name stocks only after layers are ranked.",
+                "ETF fit only when explicitly requested.",
+            ])
+        else:
+            if query:
+                bullets.append(f"主题检索：{query}")
+            bullets.extend([
+                "层级排序：稀缺供给 → 难替代 → 受益环节。",
+                "先排层，再落到个股。",
+                "仅用户明确询问时讨论 ETF。",
+            ])
 
     elif mode == "D":
         bullets.extend([
@@ -396,50 +409,9 @@ def render_agent_slot(locale: str, *, hidden: bool = True) -> str:
 
 
 def render_llm_markdown(text: str) -> str:
-    """Lightweight markdown → HTML for agent answers (no external deps)."""
-    if not text:
-        return ""
-    lines = text.replace("\r\n", "\n").split("\n")
-    out: list[str] = []
-    in_ul = False
+    from serenity_twin.agent_markdown import render_agent_markdown
 
-    def close_ul() -> None:
-        nonlocal in_ul
-        if in_ul:
-            out.append("</ul>")
-            in_ul = False
-
-    def inline(s: str) -> str:
-        s = _esc(s)
-        s = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", s)
-        s = re.sub(r"`([^`]+)`", r"<code>\1</code>", s)
-        return s
-
-    for raw in lines:
-        line = raw.rstrip()
-        if not line.strip():
-            close_ul()
-            continue
-        if line.startswith("### "):
-            close_ul()
-            out.append(f"<h4>{inline(line[4:].strip())}</h4>")
-        elif line.startswith("## "):
-            close_ul()
-            out.append(f"<h3>{inline(line[3:].strip())}</h3>")
-        elif line.startswith("# "):
-            close_ul()
-            out.append(f"<h3>{inline(line[2:].strip())}</h3>")
-        elif re.match(r"^[-*]\s+", line):
-            if not in_ul:
-                out.append("<ul class=\"agent-md-list\">")
-                in_ul = True
-            bullet = re.sub(r"^[-*]\s+", "", line)
-            out.append(f"<li>{inline(bullet)}</li>")
-        else:
-            close_ul()
-            out.append(f"<p>{inline(line)}</p>")
-    close_ul()
-    return "".join(out)
+    return render_agent_markdown(text)
 
 
 def build_structured(
@@ -456,11 +428,16 @@ def build_structured(
     lookup = ctx.get("lookup") or {}
     live = ctx.get("live_web") or {}
 
+    subtitle = f"Mode {mode}"
+    if ticker:
+        subtitle += f" · ${ticker}"
+    elif mode in ("C", "D") and live.get("query"):
+        subtitle += f" · {(live.get('query') or '')[:72]}"
     sections.append(
         {
             "type": "header",
             "title": _mode_title(mode, locale),
-            "subtitle": f"Mode {mode}" + (f" · ${ticker}" if ticker else ""),
+            "subtitle": subtitle,
             "badges": [{"text": "Live web" if live else "Corpus", "tone": "live" if live else "ok"}],
         }
     )
@@ -526,7 +503,29 @@ def build_structured(
                 }
             )
 
-    if ticker and mode in ("A", "C", "D", "E"):
+    if mode in ("C", "D") and not ticker and live.get("query"):
+        support.append(
+            {
+                "type": "alert",
+                "level": "info",
+                "title": _t(locale, "theme_live_web"),
+                "text": _t(locale, "theme_live_note"),
+            }
+        )
+        theme_searches = live.get("news_search") or []
+        if theme_searches and theme_searches[0].get("title") != "search_error":
+            support.append(
+                {
+                    "type": "sources",
+                    "title": _t(locale, "web_sources"),
+                    "items": [
+                        {"title": r.get("title", ""), "url": r.get("url", ""), "snippet": (r.get("snippet") or "")[:180]}
+                        for r in theme_searches[:8]
+                    ],
+                }
+            )
+
+    if ticker and mode in ("A", "D", "E"):
         support.append(
             {
                 "type": "header",
@@ -639,7 +638,8 @@ def build_structured(
         )
 
     searches = live.get("news_search") or []
-    if searches and searches[0].get("title") != "search_error":
+    theme_news_in_support = mode in ("C", "D") and not ticker and live.get("query")
+    if searches and searches[0].get("title") != "search_error" and not theme_news_in_support:
         references.append(
             {
                 "type": "sources",

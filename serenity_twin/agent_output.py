@@ -14,6 +14,25 @@ _EN_FORBIDDEN_HEADERS = (
     "什么情况说明判断错了",
 )
 
+_EN_EXPECTED_OPENERS = {
+    "A": ("Executive summary", "Serenity's corpus view"),
+    "B": ("Executive summary", "What's heating"),
+    "C": ("Executive summary", "System change"),
+    "D": ("Executive summary", "System change"),
+    "E": ("This turn's question",),
+    "brief": ("Executive summary",),
+}
+
+
+def check_answer_structure(text: str, mode: str, expected: str) -> list[str]:
+    """Soft checks: agent answer should open with Executive summary (English modes)."""
+    if not text or expected != "en" or mode not in _EN_EXPECTED_OPENERS:
+        return []
+    issues: list[str] = []
+    if "Executive summary" not in text and not text.lstrip().startswith("## Executive"):
+        issues.append("Missing ## Executive summary opener")
+    return issues
+
 
 def check_answer_locale(text: str, expected: str) -> list[str]:
     """Return human-readable issues when answer language drifts from expected."""

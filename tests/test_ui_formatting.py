@@ -78,6 +78,6 @@ def test_agent_slot_prepended_in_report():
 def test_render_llm_markdown_bullets():
     md = "## Serenity view\n\n- Highest conviction CPO laser play\n- No exit signal"
     html = render_llm_markdown(md)
-    assert "<h3>" in html
+    assert "agent-md-h3" in html
     assert "<li>" in html
     assert "<strong>" not in html or "Highest" in html

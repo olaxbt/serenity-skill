@@ -5,7 +5,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import subprocess
 import sys
 from pathlib import Path
 
@@ -18,26 +17,32 @@ from serenity_twin.tweets import load_archive, recent_tweets_for_ticker
 
 
 def radar_hint(ticker: str) -> dict | None:
-    radar_script = ROOT / "scripts" / "radar.py"
-    if not radar_script.exists():
+    """In-process radar hint — avoids slow subprocess spawn on every ticker lookup."""
+    from datetime import date
+
+    from serenity_twin.csv_util import read_csv
+    from serenity_twin.paths import MENTIONS_EVENTS_CSV
+
+    if not MENTIONS_EVENTS_CSV.exists():
         return None
     try:
-        proc = subprocess.run(
-            [sys.executable, str(radar_script), "--json", "--top", "50"],
-            capture_output=True,
-            text=True,
-            timeout=60,
-            cwd=str(ROOT),
-        )
-        if proc.returncode != 0:
+        import importlib.util
+
+        spec = importlib.util.spec_from_file_location("radar", ROOT / "scripts" / "radar.py")
+        if spec is None or spec.loader is None:
             return None
-        data = json.loads(proc.stdout)
+        radar_mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(radar_mod)
+        events = read_csv(MENTIONS_EVENTS_CSV)
+        dates = sorted({(e.get("created_at") or "")[:10] for e in events if e.get("created_at")})
+        asof = dates[-1] if dates else date.today().isoformat()
+        data = radar_mod.compute_radar(events, asof, 14, 50)
         for block in ("heating", "new_entrants", "conviction_watch"):
             for row in data.get(block, []):
                 if row.get("ticker", "").upper() == ticker.upper():
                     return {"signal": block, **row}
         return None
-    except (json.JSONDecodeError, subprocess.TimeoutExpired, OSError):
+    except Exception:
         return None
 
 

@@ -14,6 +14,7 @@ let agentPlanState = null;
 let fakeProgressTimer = null;
 let activeAssistantBody = null;
 let chatInFlight = false;
+let narrativeRenderTimer = null;
 
 const STEPS_BY_MODE = {
   A: ["route", "corpus", "live_web", "stale", "render", "llm"],
@@ -77,43 +78,66 @@ function formatAgentMarkdown(text) {
   const inline = (s) =>
     esc(s)
       .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+      .replace(/(?<!\*)\*([^*]+)\*(?!\*)/g, "<em>$1</em>")
       .replace(/`([^`]+)`/g, "<code>$1</code>");
   const lines = text.replace(/\r\n/g, "\n").split("\n");
   const out = [];
   let inUl = false;
-  const closeUl = () => {
+  let inOl = false;
+  const closeLists = () => {
     if (inUl) {
       out.push("</ul>");
       inUl = false;
+    }
+    if (inOl) {
+      out.push("</ol>");
+      inOl = false;
     }
   };
   for (const raw of lines) {
     const line = raw.trimEnd();
     if (!line.trim()) {
-      closeUl();
+      closeLists();
       continue;
     }
     if (line.startsWith("### ")) {
-      closeUl();
-      out.push(`<h4>${inline(line.slice(4))}</h4>`);
+      closeLists();
+      out.push(`<h4 class="agent-md-h4">${inline(line.slice(4))}</h4>`);
     } else if (line.startsWith("## ")) {
-      closeUl();
-      out.push(`<h3>${inline(line.slice(3))}</h3>`);
+      closeLists();
+      out.push(`<h3 class="agent-md-h3">${inline(line.slice(3))}</h3>`);
     } else if (line.startsWith("# ")) {
-      closeUl();
-      out.push(`<h3>${inline(line.slice(2))}</h3>`);
+      closeLists();
+      out.push(`<h3 class="agent-md-h3">${inline(line.slice(2))}</h3>`);
+    } else if (line.startsWith("> ")) {
+      closeLists();
+      out.push(`<blockquote class="agent-blockquote">${inline(line.slice(2))}</blockquote>`);
     } else if (/^[-*]\s+/.test(line)) {
+      if (inOl) {
+        out.push("</ol>");
+        inOl = false;
+      }
       if (!inUl) {
         out.push('<ul class="agent-md-list">');
         inUl = true;
       }
       out.push(`<li>${inline(line.replace(/^[-*]\s+/, ""))}</li>`);
+    } else if (/^\d+\.\s+/.test(line)) {
+      if (inUl) {
+        out.push("</ul>");
+        inUl = false;
+      }
+      if (!inOl) {
+        out.push('<ol class="agent-md-ol">');
+        inOl = true;
+      }
+      out.push(`<li>${inline(line.replace(/^\d+\.\s+/, ""))}</li>`);
     } else {
-      closeUl();
-      out.push(`<p>${inline(line)}</p>`);
+      closeLists();
+      out.push(`<p class="agent-md-p">${inline(line)}</p>`);
     }
   }
-  closeUl();
+  closeLists();
   return out.join("");
 }
 
@@ -122,7 +146,16 @@ function guessMode(prompt) {
   if (p.includes("daily brief") || p.includes("daily-brief")) return "brief";
   if (p.includes("radar") || p.includes("heating") || p.includes("注意力")) return "B";
   if (p.includes("研报") || p.includes("thesis memo")) return "D";
-  if (p.includes("产业链") || p.includes("theme scan") || p.includes("etf")) return "C";
+  if (
+    p.includes("产业链") ||
+    p.includes("theme scan") ||
+    p.includes("deep scan") ||
+    p.includes("supply chain") ||
+    p.includes("semiconductor") ||
+    p.includes("etf")
+  ) {
+    return "C";
+  }
   if (
     p.includes("fresh-name") ||
     p.includes("fresh name") ||
@@ -613,9 +646,10 @@ async function loadStatus() {
     sessionsSupported = ver >= "0.3.0";
     streamSupported = ver >= "0.3.0";
     deepseekAvailable = !!s.deepseek_available;
+    const liveHint = s.live_web_available ? t("liveWebHintOk") : t("liveWebHintFail");
     const pills = [
       `<span class="pill ok">${t("corpus")}: ${s.corpus_tweets} ${t("tweets")}</span>`,
-      `<span class="pill ${s.live_web_available ? "ok" : "warn"}">${t("liveWeb")}: ${s.live_web_available ? "✓" : "✗"}</span>`,
+      `<span class="pill ${s.live_web_available ? "ok" : "warn"}" title="${escapeHtml(liveHint)}">${t("liveWeb")}: ${s.live_web_available ? "✓" : "✗"}</span>`,
       `<span class="pill ${deepseekAvailable ? "ok" : ""}">${t("deepseek")}: ${deepseekAvailable ? "✓" : "✗"}</span>`,
     ];
     if (s.agent_parity) pills.push('<span class="pill ok">Agent path</span>');
@@ -651,6 +685,28 @@ async function loadPrompts() {
   }
 }
 
+function scheduleNarrativeRender(narrativeEl) {
+  if (!narrativeEl) return;
+  if (narrativeRenderTimer) return;
+  narrativeRenderTimer = setTimeout(() => {
+    narrativeRenderTimer = null;
+    if (narrativeEl.dataset.raw) {
+      narrativeEl.innerHTML = formatAgentMarkdown(narrativeEl.dataset.raw);
+      scrollChatToBottom();
+    }
+  }, 60);
+}
+
+function flushNarrativeRender(narrativeEl) {
+  if (narrativeRenderTimer) {
+    clearTimeout(narrativeRenderTimer);
+    narrativeRenderTimer = null;
+  }
+  if (narrativeEl && narrativeEl.dataset.raw) {
+    narrativeEl.innerHTML = formatAgentMarkdown(narrativeEl.dataset.raw);
+  }
+}
+
 function formatMeta(result) {
   const parts = [
     `${t("mode")} ${result.mode}`,
@@ -672,6 +728,14 @@ function handleProgress(payload) {
     if (!agentPlanState || agentPlanState.mode !== detected) {
       startAgentRun(detected, deepseekAvailable);
     }
+    if (agentPlanState) {
+      agentPlanState.details.route = msg;
+      agentPlanState.status.route = "done";
+      const next = agentPlanState.steps[1];
+      if (next) agentPlanState.status[next] = "active";
+      renderAgentPlan();
+    }
+    return;
   }
   if (step) advanceAgentStep(step, msg);
 }
@@ -780,13 +844,10 @@ async function runChatStream(body, modeGuess) {
           llmStarted = true;
         }
         narrativeEl.dataset.raw = (narrativeEl.dataset.raw || "") + (payload.text || "");
-        narrativeEl.innerHTML = formatAgentMarkdown(narrativeEl.dataset.raw);
-        scrollChatToBottom();
+        scheduleNarrativeRender(narrativeEl);
       } else if (event === "done") {
         finalResult = payload.data || finalResult;
-        if (narrativeEl && narrativeEl.dataset.raw) {
-          narrativeEl.innerHTML = formatAgentMarkdown(narrativeEl.dataset.raw);
-        }
+        flushNarrativeRender(narrativeEl);
         if (llmStarted) completeAgentStep("llm");
         finalizeChatTurn(finalResult ? formatMeta(finalResult) : "");
       } else if (event === "saved") {
