@@ -13,7 +13,7 @@
 [![Tests](https://img.shields.io/badge/Tests-47%20passing-brightgreen)](#maturity--quality-grade)
 [![UI](https://img.shields.io/badge/Browser%20UI-v0.3.10-e781fd)](#browser-agent-ui)
 
-[Demo](#demo) · [Quick start](#quick-start) · [Architecture](#architecture) · [Query modes](#query-modes-a–e) · [中文](README.zh-CN.md)
+[Demo](#demo) · [Quick start](#quick-start) · [Architecture](#architecture) · [Query flow](#query-flow) · [Query modes](#query-modes-a–e) · [中文](README.zh-CN.md)
 
 </div>
 
@@ -337,7 +337,22 @@ Unified from three open-source Serenity skill projects:
 
 ## Keywords & discoverability
 
-Serenity Skill is an open-source **Cursor Agent Skill** and **investment research agent** for followers of **@aleabitoreddit** (Serenity). It covers **supply-chain bottleneck analysis**, **CPO / optical / semiconductor theses**, **attention radar**, **A-share and US equity theme scans**, **thesis memos**, and **live market verification** (Yahoo quotes, news, SEC). Use in **Cursor IDE**, the bundled **browser UI**, or **OpenClaw**. Built by [OlaXBT](https://www.olaxbt.xyz).
+**Serenity Skill** ([`olaxbt/serenity-skill`](https://github.com/olaxbt/serenity-skill)) is an open-source **Cursor Agent Skill** and **investment research agent** for followers of **@aleabitoreddit** (Serenity). Search terms: *serenity skill*, *serenity aleabitoreddit*, *what does Serenity think about*, *Serenity ticker thesis*, *CPO bottleneck stocks*, *attention radar investing*, *Cursor agent skill investing*.
+
+**Topics:** supply-chain bottleneck analysis · CPO / optical / semiconductor theses · attention radar · A-share and US equity theme scans · thesis memos · live market verification (Yahoo quotes, news, SEC) · **Cursor IDE** · bundled **browser UI** · **OpenClaw**.
+
+> The browser UI may show “Serenity Twin” internally — the public project name is **Serenity Skill** (this repo).
+
+### FAQ
+
+| Question | Answer |
+|----------|--------|
+| **What is Serenity Skill?** | A Cursor/OpenClaw Agent Skill + Python toolkit that distills @aleabitoreddit’s public research into queryable corpus + live-aware workflows. |
+| **How do I ask “what does Serenity think about $TICKER”?** | Run `python aio_serenity.py` or load `SKILL.md` in Cursor Agent mode — scripts auto-fetch thesis + live quotes. |
+| **Is this official or affiliated with Serenity?** | No — independent research distill by [OlaXBT](https://www.olaxbt.xyz). Not investment advice. |
+| **Cursor vs browser UI?** | Same scripts; Cursor uses your IDE models, browser UI uses optional `DEEPSEEK_API_KEY`. |
+
+**GitHub repo topics (suggested):** `cursor-agent`, `agent-skill`, `investment-research`, `aleabitoreddit`, `supply-chain`, `semiconductor`, `cpo`, `python`.
 
 ---
 

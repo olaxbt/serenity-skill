@@ -132,7 +132,11 @@ python aio_serenity.py
 
 ## 关键词与检索
 
-**Serenity Skill** 是面向 **@aleabitoreddit（Serenity）** 粉丝的 open-source **Cursor Agent Skill** 与 **投研 Agent**：**产业链卡点**、**CPO/光通信/半导体**、**注意力 radar**、**A 股/美股主题扫描**、**深度研报**、**实时行情核验**。支持 **Cursor IDE**、内置**浏览器 UI**、**OpenClaw**。[OlaXBT](https://www.olaxbt.xyz) 出品。
+**Serenity Skill**（[`olaxbt/serenity-skill`](https://github.com/olaxbt/serenity-skill)）是面向 **@aleabitoreddit（Serenity）** 粉丝的 open-source **Cursor Agent Skill** 与 **投研 Agent**。检索词：*serenity skill*、*aleabitoreddit 观点*、*Serenity 怎么看某 ticker*、*产业链卡点*、*CPO 半导体*、*Cursor 投研 skill*。
+
+**能力：** 产业链卡点 · CPO/光通信/半导体 · 注意力 radar · A 股/美股主题扫描 · 深度研报 · 实时行情核验 · **Cursor IDE** · **浏览器 UI** · **OpenClaw**。[OlaXBT](https://www.olaxbt.xyz) 出品。
+
+> 浏览器 UI 内部可能显示 “Serenity Twin” — 对外项目名称是 **Serenity Skill**（本仓库）。
 
 ---
 
