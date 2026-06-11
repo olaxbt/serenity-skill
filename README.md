@@ -1,21 +1,35 @@
 <div align="center">
 
-<img src="docs/assets/readme-hero.png" alt="Serenity Twin — OlaXBT research agent" width="720" />
+<img src="docs/assets/readme-hero.png" alt="Serenity Skill — Cursor agent skill for @aleabitoreddit investment research by OlaXBT" width="720" />
 
-# Serenity Twin
+# Serenity Skill
 
-**A queryable digital twin of Serenity ([@aleabitoreddit](https://x.com/aleabitoreddit)) — corpus, live web, radar, and bottleneck research workflows**
+**Cursor Agent Skill + browser research agent for Serenity ([@aleabitoreddit](https://x.com/aleabitoreddit)) — distilled tweet corpus, live market data, attention radar, and supply-chain bottleneck workflows**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10+-3776AB?logo=python&logoColor=white)](requirements.txt)
-[![Agent Skill](https://img.shields.io/badge/Agent%20Skill-SKILL.md-black)](SKILL.md)
+[![Agent Skill](https://img.shields.io/badge/Cursor%20Skill-SKILL.md-black)](SKILL.md)
 [![Corpus](https://img.shields.io/badge/Tweets-5800%2B-green)](#corpus)
-[![Tests](https://img.shields.io/badge/Tests-39%20passing-brightgreen)](#maturity--quality-grade)
-[![UI](https://img.shields.io/badge/Browser%20UI-v0.3.8-e781fd)](#browser-agent-ui)
+[![Tests](https://img.shields.io/badge/Tests-47%20passing-brightgreen)](#maturity--quality-grade)
+[![UI](https://img.shields.io/badge/Browser%20UI-v0.3.10-e781fd)](#browser-agent-ui)
 
-[Quick start](#quick-start) · [Architecture](#architecture) · [Query flow](#query-flow) · [Query modes](#query-modes-a–e) · [中文](README.zh-CN.md)
+[Demo](#demo) · [Quick start](#quick-start) · [Architecture](#architecture) · [Query modes](#query-modes-a–e) · [中文](README.zh-CN.md)
 
 </div>
+
+---
+
+## Demo
+
+Full walkthrough: ticker view, live quotes, thesis cards, and agent narrative in the browser UI.
+
+<p align="center">
+  <video src="docs/assets/serenity-skill-demo.mp4" controls width="720" poster="docs/assets/readme-hero.png">
+    <a href="docs/assets/serenity-skill-demo.mp4">Download demo video</a>
+  </video>
+</p>
+
+<p align="center"><sub>Serenity Skill browser UI · <code>python aio_serenity.py</code> · research support only</sub></p>
 
 ---
 
@@ -25,7 +39,7 @@
 
 ## Disclaimer — research distill, not Serenity herself
 
-**Serenity Twin** is an **independent research tool** (OlaXBT). It is **not** Serenity ([@aleabitoreddit](https://x.com/aleabitoreddit)), does **not** speak for her, and does **not** impersonate her.
+**Serenity Skill** is an **independent research tool** ([OlaXBT](https://www.olaxbt.xyz)). It is **not** Serenity ([@aleabitoreddit](https://x.com/aleabitoreddit)), does **not** speak for her, and does **not** impersonate her.
 
 | | |
 |---|---|
@@ -57,10 +71,11 @@ Re-run `python -m pytest tests/ -q` after corpus edits. Tune narrative quality v
 
 | | |
 |---|---|
-| **What** | Agent Skill + Python toolkit + browser UI that distills Serenity's public research into structured, live-aware investment research |
+| **What** | **Serenity Skill** — Cursor/OpenClaw Agent Skill + Python toolkit + browser UI for Serenity-style bottleneck investment research |
 | **Primary question** | *What does Serenity think about ticker X — and is that view still valid today?* |
-| **One command** | `python aio_serenity.py` — auto-init + browser research agent (OlaXBT) |
+| **One command** | `python aio_serenity.py` — auto-init + browser research agent ([OlaXBT](https://www.olaxbt.xyz)) |
 | **Stack** | Python 3.10+ (stdlib core), optional DeepSeek / X API, Cursor or OpenClaw |
+| **Repo** | [github.com/olaxbt/serenity-skill](https://github.com/olaxbt/serenity-skill) |
 | **Maturity** | **8.9 / 10** — production-ready research MVP ([details](#maturity--quality-grade)) |
 
 ---
@@ -79,11 +94,11 @@ Full prompt catalog: [`docs/sample_prompts.md`](docs/sample_prompts.md)
 
 ---
 
-## Why Serenity Twin exists
+## Why Serenity Skill exists
 
 Serenity's research lens is distinctive: trace **hyperscaler capex upstream** to the **single chokepoint** — sole or near-sole supply, hard to design around, often still small-cap. Her public feed is high-volume, multi-ticker, and views evolve over time.
 
-Serenity Twin packages four things other tools don't combine:
+Serenity Skill packages four things other tools don't combine:
 
 1. **Memory** — 5,800+ tweet archive, 43 deep thesis tickers, methodology, track-record, articles  
 2. **Workflows** — `SKILL.md` routes Agent queries through deterministic scripts + evidence rules  
@@ -137,7 +152,7 @@ More: [`docs/QUICKSTART.md`](docs/QUICKSTART.md)
 | Surface | Command / trigger | Best for |
 |---------|-------------------|----------|
 | **Browser agent UI** | `python aio_serenity.py` | Testing prompts, tables, price charts, bilingual UI, SSE streaming |
-| **Cursor Chat** | Agent mode + `serenity-twin` / natural question | Deep research sessions, web search, editing corpus |
+| **Cursor Chat** | Agent mode + `serenity-skill` / natural question | Deep research sessions, web search, editing corpus |
 | **OpenClaw** | Install skill + gateway web tools | 24/7 cron, Telegram briefs ([`docs/SETUP.md`](docs/SETUP.md)) |
 
 All three surfaces share the same Python scripts and corpus. Only the **LLM narration layer** differs (DeepSeek in browser vs Cursor models in chat).
@@ -192,7 +207,7 @@ flowchart LR
   H --> O
 ```
 
-**Report layout (v0.3.8):**
+**Report layout (v0.3.10):**
 
 1. **Agent answer** — LLM synthesis at the top when `DEEPSEEK_API_KEY` is set (locale follows your prompt, not the UI toggle)  
 2. **Supporting data** — live quote table + chart, thesis cards with tiered evidence, radar tables, stale warnings  
@@ -201,7 +216,7 @@ flowchart LR
 
 Without DeepSeek, step 1 is omitted and a deterministic synthesis block may appear instead.
 
-**Fresh ticker (never in corpus):** `lookup_ticker.py` returns `found_in_theses = false` → follow `methodology.md` 14-question checklist + `live_research.py` → output is **independent analysis**, not Serenity's stated view. Partial coverage (tweets only, no deep thesis) uses tweets as leads into the same checklist.
+**Fresh ticker (never in corpus):** `lookup_ticker.py` returns `found_in_theses = false` → follow `methodology.md` 14-question checklist + `live_research.py` → output is **independent analysis**, not Serenity's stated view.
 
 ---
 
@@ -220,7 +235,7 @@ Without DeepSeek, step 1 is omitted and a deterministic synthesis block may appe
 
 ## Browser agent UI
 
-Light-mode interface (purple accent `#e781fd`, **v0.3.8**) with **English / 中文** chrome toggle. Built and maintained by **[OlaXBT](https://www.olaxbt.xyz)** — free for the dev community.
+Light-mode interface (purple accent `#e781fd`, **v0.3.10**) with **English / 中文** chrome toggle. Built and maintained by **[OlaXBT](https://www.olaxbt.xyz)** — free for the dev community.
 
 | Feature | Detail |
 |---------|--------|
@@ -230,9 +245,8 @@ Light-mode interface (purple accent `#e781fd`, **v0.3.8**) with **English / 中�
 | Auto live web | Yahoo quote, 3M chart, news search, SEC — every analysis prompt; crypto uses spot symbols (`BTC-USD`, not ETF tickers) |
 | Structured output | Tables, metric cards, thesis cards — references demoted to collapsible section |
 | **Agent narrative** | Auto-enabled when `DEEPSEEK_API_KEY` is in `.env` — rendered as markdown at top of report |
-| **Answer locale** | Detected from your prompt text (`detect_prompt_locale`) — English prompts get English section headers |
+| **Answer locale** | Detected from your prompt text — English prompts get English section headers |
 | **Task-oriented prompts** | Sidebar labels describe research tasks — see [`ui/prompts.json`](ui/prompts.json) |
-| Serenity avatar | Brand, empty state, agent plan — `ui/assets/serenity.png` |
 | Session history | SQLite at `corpus/data/sessions.db` (v0.3+) |
 | **Cursor Auto / Codex** | **Not available in browser** — use Cursor Agent chat + `SKILL.md` instead |
 
@@ -245,8 +259,6 @@ The browser UI is a **standalone Python server** (`aio_serenity.py`). It runs ou
 | **Browser UI** | Needs `DEEPSEEK_API_KEY` in `.env` | Python server calls DeepSeek directly |
 | **Cursor Agent** | Uses your Cursor model (Auto, Codex, …) | Load skill → ask in Agent mode — **no browser API key** |
 
-When the browser opens without a key, the sidebar shows **`.env` setup instructions** (file path + restart steps).
-
 ---
 
 ## Optional: live tweet sync
@@ -258,19 +270,7 @@ cp .env.example .env
 # X_BEARER_TOKEN=...
 ```
 
-```json
-{ "twitter_sync_enabled": true }
-```
-
-```bash
-python scripts/sync_tweets.py --include-replies --distill
-python scripts/agent_distill.py --since-sync
-python scripts/rebuild_mentions.py
-```
-
 Daily automation (Windows): [`scripts/daily_brief.ps1`](scripts/daily_brief.ps1)
-
-Optional CI: [`.github/workflows/weekly-sync.yml`](.github/workflows/weekly-sync.yml) (requires a PAT with `workflow` scope to push)
 
 ---
 
@@ -282,7 +282,6 @@ Optional CI: [`.github/workflows/weekly-sync.yml`](.github/workflows/weekly-sync
 | `corpus/references/theses/*.md` | Sector thesis files — **43** deep tickers in index |
 | `corpus/references/methodology.md` | 14 transferable principles + runnable checklist |
 | `corpus/references/track-record.md` | Dated calls + calibration |
-| `corpus/references/articles.md` | Long-form X Article summaries |
 | `corpus/data/mentions-*.csv` | Mention analytics — **724** tickers |
 
 ---
@@ -292,14 +291,10 @@ Optional CI: [`.github/workflows/weekly-sync.yml`](.github/workflows/weekly-sync
 | Script | Purpose | Network |
 |--------|---------|---------|
 | [`aio_serenity.py`](aio_serenity.py) | **All-in-one** init + browser UI | yes (UI) |
-| [`scripts/init_system.py`](scripts/init_system.py) | Production init + QC | no |
 | [`scripts/lookup_ticker.py`](scripts/lookup_ticker.py) | Thesis + tweets + radar hint | no |
 | [`scripts/live_research.py`](scripts/live_research.py) | Quote + news + SEC | yes |
 | [`scripts/radar.py`](scripts/radar.py) | Attention momentum | no |
-| [`scripts/sync_tweets.py`](scripts/sync_tweets.py) | Merge X API into archive | optional X |
-| [`scripts/agent_distill.py`](scripts/agent_distill.py) | Auto thesis / track-record write-back | optional LLM |
-| [`scripts/run_qc.py`](scripts/run_qc.py) | Full quality-control suite | no |
-| [`scripts/daily_brief.ps1`](scripts/daily_brief.ps1) | Scheduled refresh + radar snapshot | optional X |
+| [`SKILL.md`](SKILL.md) | Cursor / OpenClaw Agent Skill entry | — |
 
 ---
 
@@ -313,66 +308,16 @@ Optional CI: [`.github/workflows/weekly-sync.yml`](.github/workflows/weekly-sync
 
 ---
 
-## Project structure
-
-```text
-serenity-skill/                 # GitHub repo root (local folder may be serenity-twin/)
-├── aio_serenity.py             # ← start here
-├── SKILL.md                    # Agent Skill entry (Cursor / OpenClaw)
-├── README.md · README.zh-CN.md
-├── ui/                         # Browser agent (HTML/CSS/JS + i18n)
-├── docs/
-│   ├── ARCHITECTURE.md
-│   ├── QUICKSTART.md
-│   ├── SETUP.md
-│   └── sample_prompts.md
-├── corpus/                     # Digital twin memory
-│   ├── data/                   # tweets.json, mentions CSVs
-│   └── references/             # theses, methodology, track-record
-├── reasoning/                  # Deep research workflows + templates
-├── distillation/               # Corpus maintenance playbook
-├── scripts/                    # CLI tools
-├── serenity_twin/              # Shared Python package
-├── tests/                      # pytest suite
-└── evals/                      # ticker lookup evals
-```
-
----
-
 ## Maturity & quality grade
 
 **Overall: 8.9 / 10** — shippable research-agent MVP, not a fully autonomous trader.
 
 | Dimension | Score | Notes |
 |-----------|-------|-------|
-| Corpus & tooling | ★★★★☆ | 5.8k tweets, 43 deep theses, lookup/radar/distill/QC |
 | Agent Skill (`SKILL.md`) | ★★★★★ | Modes A–E, mandatory live verification, script-first rules |
-| Browser UI | ★★★★☆ | v0.3.8 — agent-first layout, streaming, EN/中文, sessions, mobile |
-| Auto live web | ★★★★☆ | Quote + chart + news + SEC; crypto spot aliases |
-| **Stale thesis detection** | ★★★★☆ | **Code-level** — `stale_check.py` (corpus date vs price %) |
-| Automation / cron | ★★★☆☆ | `daily_brief.ps1`, optional GitHub weekly workflow |
-| Tests & evals | ★★★★☆ | **39 pytest** incl. E2E output, stale, session store, UI formatting |
-| Documentation | ★★★★☆ | Architecture, quickstart, sample prompts, UI roadmap spec |
-
-### What would make it 9.5/10
-
-| Item | Status | Notes |
-|------|--------|-------|
-| **Stale thesis detection** | ✅ Done | `serenity_twin/stale_check.py` — UI alert with date + price % |
-| **E2E output tests** | ✅ Done | `tests/test_e2e_output.py` — Mode A must include chart + table |
-| **Mode C/D long memos in browser UI** | ✅ With DeepSeek | Same SKILL prompt + scripts as Cursor; set `DEEPSEEK_API_KEY` |
-| **Agent-first report layout** | ✅ Done (v0.3.8) | LLM answer top; references collapsed |
-| **A-share primary disclosures** | Out of scope | Data-source layer, not agent maturity |
-| **Streaming / session / mobile** | ✅ Done (v0.3+) | See [`docs/UI_ROADMAP.md`](docs/UI_ROADMAP.md) |
-| Premium search API + E2E Agent compliance tests | Planned | Assert Cursor runs `live_research` + `lookup` on every ticker prompt |
-
-### Mode C/D: who writes the long memo?
-
-| Runtime | Mode C/D long memo | Why |
-|---------|-------------------|-----|
-| **Browser UI + `DEEPSEEK_API_KEY`** | ✅ Recommended | Same script chain + `SKILL.md` system prompt via `agent_prompt.py`; SSE streaming + session history |
-| **Cursor Agent** | ✅ Yes | SKILL + web/search tools + long context |
-| **Browser UI without key** | ⚠️ Partial | Structured tables/charts + workflow skeleton only |
+| Browser UI | ★★★★☆ | v0.3.10 — agent-first layout, streaming, EN/中文, sessions |
+| Corpus & tooling | ★★★★☆ | 5.8k tweets, 43 deep theses, lookup/radar/distill/QC |
+| Tests & evals | ★★★★☆ | **47 pytest** incl. E2E output, stale, session store, UI formatting |
 
 ---
 
@@ -386,7 +331,13 @@ Unified from three open-source Serenity skill projects:
 | [lanfuli/aleabito-serenity-skills](https://github.com/lanfuli/aleabito-serenity-skills) | Radar patterns, method framework |
 | [muxuuu/serenity-skill](https://github.com/muxuuu/serenity-skill) | A-share/HK workflow, scorecard |
 
-**Publish only this repo** ([olaxbt/serenity-skill](https://github.com/olaxbt/serenity-skill)). Reference clones are for provenance — do not republish them.
+**Publish only** [olaxbt/serenity-skill](https://github.com/olaxbt/serenity-skill).
+
+---
+
+## Keywords & discoverability
+
+Serenity Skill is an open-source **Cursor Agent Skill** and **investment research agent** for followers of **@aleabitoreddit** (Serenity). It covers **supply-chain bottleneck analysis**, **CPO / optical / semiconductor theses**, **attention radar**, **A-share and US equity theme scans**, **thesis memos**, and **live market verification** (Yahoo quotes, news, SEC). Use in **Cursor IDE**, the bundled **browser UI**, or **OpenClaw**. Built by [OlaXBT](https://www.olaxbt.xyz).
 
 ---
 
